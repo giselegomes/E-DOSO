@@ -1,11 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Card } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 
 export default function App() {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}> Hello world! </Text>
+      <Text>E-doso</Text>
+        <Card>
+          <Card.Title>
+            Whatsapp
+          </Card.Title>
+          <Icon
+            name='whatsapp'
+            type='font-awesome'
+            color='green' />
+        </Card>
       <StatusBar style="auto" />
     </View>
   );
