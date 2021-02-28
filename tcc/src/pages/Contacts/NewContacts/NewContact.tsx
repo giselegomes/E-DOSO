@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Styles } from './NewContact.style';
 import { Card, Icon } from 'react-native-elements';
