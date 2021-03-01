@@ -93,7 +93,7 @@ export default function App() {
         iconType: "font-awesome",
         text: "Contatos",
         clickFunction: () => {
-          Linking.openURL("facebook://app");
+          navigation.navigate('ListContacts')
         },
       },
       {
