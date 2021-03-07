@@ -1,30 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, TextInput } from 'react-native';
 import { Styles } from './ListContacts.style';
 import { Card, Icon } from 'react-native-elements';
 import * as Contacts from 'expo-contacts';
+import { useNavigation } from '@react-navigation/native';
 
-const ListContacts: React.FC = () => {
-    const [listContacts, setContacts] = useState<any>();
+interface Contact {
+  phoneNumber: number;
+  imageContact: string;
+}
+
+const ListContacts = () => {
+    const [listContacts, setListContacts] = useState<any>([]);
     const [searchedContacts, setSearchedContacts] = useState<any>();
+    const navigation = useNavigation();
 
     useEffect(() => {
         const loadContacts = async () => {
             const data = await Contacts.getContactsAsync({
-                fields: [Contacts.Fields.Name],
+                fields: [Contacts.Fields.PhoneNumbers],
             });
-            setContacts(data.data);
-            setSearchedContacts(data.data);
+            const image = await Contacts.getContactsAsync({
+                fields: [Contacts.Fields.Image],
+            });
+ 
+            const contacts = data.data.map((item: any, key: number) => {
+                return {
+                    name: item.name,
+                    phoneNumber: item.phoneNumbers,
+                    imageContact: image.data[key].image?.uri
+                }
+            })
+            setSearchedContacts(contacts);
+            setListContacts(contacts)
         }
         loadContacts();
     }, [])
-
+    
     const toogleSearchedContacts = (searchedValue: string) => {
         const results = listContacts.filter((contact: any) =>
             contact.name.toLowerCase().includes(searchedValue.toLowerCase()),
         );
         setSearchedContacts(results);
-      };
+    };
+
+    const redirectToContact = (phoneNumber: number, image: string) => {
+        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image });
+    }
 
     return (
         <ScrollView style={{ height: "100%", width: "100%", backgroundColor: 'white' }}>
@@ -52,7 +74,12 @@ const ListContacts: React.FC = () => {
                     {searchedContacts !== undefined &&
                         searchedContacts.map((item: any, key: number) => {
                             return (
-                                <Text key={key} style={key === 0 ? Styles.firstContact : Styles.contacts}>{item.name}</Text>
+                                <Text 
+                                  key={key} 
+                                  style={key === 0 ? Styles.firstContact : Styles.contacts} 
+                                  onPress={() => redirectToContact(item.phoneNumber[0].number, item.imageContact)}>
+                                  {item.name}
+                                </Text>
                             )
                         })}
                 </View>
