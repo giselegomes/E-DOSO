@@ -20,7 +20,9 @@
       "supportsTablet": true
     },
     "android": {
-      "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL", "WRITE_CONTACTS" ]
+      "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL", "WRITE_CONTACTS" ],
+      "package": "com.thebesttcc.tcc",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
