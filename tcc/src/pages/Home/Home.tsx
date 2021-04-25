@@ -69,7 +69,7 @@ export default function App() {
         iconType: "font-awesome",
         text: "Criar Contato",
         clickFunction: () => {
-            navigation.navigate('NewContact');
+            navigation.navigate('NewContact', {param: 'create'});
         },
       },
       {
@@ -77,7 +77,7 @@ export default function App() {
         iconType: "font-awesome-5",
         text: "Emergência",
         clickFunction: () => {
-          Linking.openURL("facebook://app");
+          navigation.navigate('ListEmergencyContacts', {contact: null})
         },
       },
       {
@@ -93,7 +93,7 @@ export default function App() {
         iconType: "font-awesome",
         text: "Contatos",
         clickFunction: () => {
-          navigation.navigate('ListContacts')
+          navigation.navigate('ListContacts', {isEmergency: false})
         },
       },
       {

@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Styles } from './NewContact.style';
 import { Card, Icon } from 'react-native-elements';
 import ImagePicker from '../../../components/CustomImagePicker/CustomImagePicker';
 import Contacts from 'react-native-contacts';
 import { PermissionsAndroid } from 'react-native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import * as Contact from 'expo-contacts';
 
 const NewContact = () => {
+    const navigation = useNavigation();
     const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState<string | undefined>('');
     const [statusImagePicker, setStatusImagePicker] = useState(false);
     const [hasImage, setHasImage] = useState(false);
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState<string | undefined>('');
+    type ParamList = {
+        NewContact: {
+            param: string;
+            id: string;
+        };
+    };
+    const newContact = useRoute<RouteProp<ParamList, 'NewContact'>>();
+
+    useEffect(() => {
+        const loadContact = async () => {
+            const contact = await Contact.getContactByIdAsync(newContact.params.id);
+            if (contact) {
+                setName(contact.name);
+                if (contact.phoneNumbers) {
+                    setPhone(contact.phoneNumbers[0].number);
+                }
+                if (contact.image) {
+                    setImage(contact.image.uri);
+                    setHasImage(true);
+                }
+            }
+        }
+        if (newContact.params.param === 'edit') {
+            loadContact();
+        }
+    }, [])
 
     const toogleImagePicker = () => {
         setStatusImagePicker(!statusImagePicker);
@@ -55,24 +84,55 @@ const NewContact = () => {
                 prefix: 'teste',
                 suffix: 'teste',
                 department: 'teste',
-                birthday: {day: 1, month: 2, year: 2021 },
-                imAddresses: [{ username: 'teste', service: 'teste'}],
+                birthday: { day: 1, month: 2, year: 2021 },
+                imAddresses: [{ username: 'teste', service: 'teste' }],
                 note: 'teste',
             }
-    
+
             alert(Contacts.addContact(newPerson))
 
         })
-        .catch((err) => {
-            alert(err);
-        })
+            .catch((err) => {
+                alert(err);
+            })
+    }
+
+    const updateContact = async () => {
+        Contact.requestPermissionsAsync()
+            .then((response) => {
+                try {
+                    if (response.granted) {
+                        const contact = {
+                            id: newContact.params.id,
+                            contactType: 'Person',
+                            name: name,
+                            phone: phone,
+                        };
+                        Contact.updateContactAsync(contact);
+                    }
+                } catch (error) {
+                    alert(error);
+                }
+            });
+    }
+
+    const goBack = () => {
+        if (newContact.params.param === 'edit') {
+            navigation.navigate('ListContacts');
+        } else {
+            navigation.navigate('Home');
+        }
     }
 
     return (
         <ScrollView >
             <View style={{ display: "flex", marginTop: 10, height: 80 }}>
                 <Card containerStyle={Styles.topbar}>
-                    <Text style={Styles.cardText}>Adicionar contato</Text>
+                    {newContact.params.param === 'edit' ?
+                    <Text style={Styles.cardText}>Editar contato</Text>
+                    :
+                    <Text style={Styles.cardText}>Adicionar contato</Text>                    
+                    }
                 </Card>
             </View>
             <View >
@@ -114,10 +174,10 @@ const NewContact = () => {
                     value={phone}
                 />
                 <View style={{ width: '100%', flex: 1, flexDirection: 'row', marginLeft: 45 }}>
-                    <TouchableOpacity style={Styles.buttonSave} onPress={handleNewContact}>
+                    <TouchableOpacity style={Styles.buttonSave} onPress={updateContact}>
                         <Text style={Styles.buttonText}>Salvar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={Styles.buttonCancel}>
+                    <TouchableOpacity style={Styles.buttonCancel} onPress={goBack}>
                         <Text style={Styles.buttonText}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>

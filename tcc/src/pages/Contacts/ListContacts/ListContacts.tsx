@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput } from 'react-native';
 import { Styles } from './ListContacts.style';
 import { Card, Icon } from 'react-native-elements';
 import * as Contacts from 'expo-contacts';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 interface Contact {
   phoneNumber: number;
@@ -11,9 +11,18 @@ interface Contact {
 }
 
 const ListContacts = () => {
+    type ParamList = {
+        ListContacts: {
+            isEmergency: boolean;
+        };
+    };
+    const contact = useRoute<RouteProp<ParamList, 'ListContacts'>>();
+    const isEmergency = contact.params.isEmergency;
+
     const [listContacts, setListContacts] = useState<any>([]);
     const [searchedContacts, setSearchedContacts] = useState<any>();
     const navigation = useNavigation();
+
 
     useEffect(() => {
         const loadContacts = async () => {
@@ -28,7 +37,8 @@ const ListContacts = () => {
                 return {
                     name: item.name,
                     phoneNumber: item.phoneNumbers,
-                    imageContact: image.data[key].image?.uri
+                    imageContact: image.data[key].image?.uri,
+                    id: item.id,
                 }
             })
             setSearchedContacts(contacts);
@@ -44,8 +54,12 @@ const ListContacts = () => {
         setSearchedContacts(results);
     };
 
-    const redirectToContact = (phoneNumber: number, image: string) => {
-        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image });
+    const redirectToShowContact = (phoneNumber: number, image: string, id: string) => {
+        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image, id: id });
+    }
+
+    const addToEmergencyContact = (contact: any) => {
+        navigation.navigate('ListEmergencyContacts', { contact: contact})
     }
 
     return (
@@ -77,7 +91,12 @@ const ListContacts = () => {
                                 <Text 
                                   key={key} 
                                   style={key === 0 ? Styles.firstContact : Styles.contacts} 
-                                  onPress={() => redirectToContact(item.phoneNumber[0].number, item.imageContact)}>
+                                  onPress={ 
+                                    isEmergency ?
+                                      () => addToEmergencyContact(item)
+                                      :
+                                      () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id)
+                                    }>
                                   {item.name}
                                 </Text>
                             )
