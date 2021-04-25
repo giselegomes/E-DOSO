@@ -2,15 +2,20 @@ import { StyleSheet } from "react-native";
 
 export const Styles = StyleSheet.create({
   topbar: {
-    backgroundColor: "rgba(128, 0, 128, 0.8)",
-    alignSelf: 'stretch',
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  teste: {
+    backgroundColor: "rgba(128, 0, 128, 0.8)",
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    justifyContent: 'space-between',
+    height: 60,
+    justifyContent: 'center',
+
   },
   cardText: {
-    textAlign: "left",
     fontSize: 24,
     color: "white",
   },
@@ -32,6 +37,12 @@ export const Styles = StyleSheet.create({
   icon: {
     marginTop: 8,
     fontSize: 180,
+  },
+  dotIcon: {
+    fontSize: 50,
+  },
+  penIcon: {
+    fontSize: 10,
   },
   buttonCall: {
     backgroundColor: 'rgba(24,154,211, 0.7)',
@@ -75,4 +86,12 @@ export const Styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
+  listOptions: {
+    textAlign: "left",
+    fontSize: 24,
+    color: "black",
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+  }
 });
