@@ -5,9 +5,10 @@ import { Icon } from 'react-native-elements';
 
 interface CustomModalProps {
     firstOptionTitle: string;
-    secondOptionTitle: string;
+    secondOptionTitle?: string;
+    modalTitle: string;
     handleFirstOption: (event: GestureResponderEvent) => void
-    handleSecondOption: (event: GestureResponderEvent) => void
+    handleSecondOption?: (event: GestureResponderEvent) => void
     handleCancelOption: (event: GestureResponderEvent) => void
 
 }
@@ -26,13 +27,15 @@ const CustomModal = (Props: CustomModalProps) => {
                     onPress={Props.handleCancelOption}
                 />
             </View>
-            <Text style={Styles.modalTitle}>Adicionar foto</Text>
+            <Text style={Styles.modalTitle}>{Props.modalTitle}</Text>
             <TouchableOpacity style={Styles.buttonImage} onPress={Props.handleFirstOption}>
                 <Text style={Styles.buttonText}>{Props.firstOptionTitle}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.buttonImage} onPress={Props.handleSecondOption}>
+            {Props.secondOptionTitle &&
+              <TouchableOpacity style={Styles.buttonImage} onPress={Props.handleSecondOption}>
                 <Text style={Styles.buttonText}>{Props.secondOptionTitle}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            }
             <TouchableOpacity style={Styles.buttonCancel} onPress={Props.handleCancelOption}>
                 <Text style={Styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>

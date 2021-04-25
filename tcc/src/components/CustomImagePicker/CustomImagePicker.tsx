@@ -1,10 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
-import { Image, View, Platform, GestureResponderEvent } from 'react-native';
+import React, { useEffect } from 'react';
+import { Platform, GestureResponderEvent } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import CustomModal from '../CustomModal/CustomModal';
-import { Styles } from './CustomImagePicker.style';
-
 interface CustomImagePickerProps {
   toogleImagePicker: (event: GestureResponderEvent) => void;
   toogleSetImage: (uri: string) => void
@@ -51,6 +49,7 @@ const CustomImagePicker = (Props: CustomImagePickerProps) => {
 
   return (
     <CustomModal
+      modalTitle= 'Adicionar foto'
       handleFirstOption={chooseFromGallery}
       handleSecondOption={openCamera}
       handleCancelOption={Props.toogleImagePicker}
