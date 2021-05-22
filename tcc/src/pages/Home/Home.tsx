@@ -1,12 +1,39 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Text, View, Linking, ScrollView } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { Styles } from "./Home.style";
 import { useNavigation } from '@react-navigation/native';
+import { Camera } from 'expo-camera';
 
 export default function App() {
     const navigation = useNavigation();
+    const [torchState, setTorchState] = useState(false);
+
+    const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+    const [type, setType] = useState(Camera.Constants.Type.back);
+  
+    useEffect(() => {
+      (async () => {
+        const { status } = await Camera.requestPermissionsAsync();
+        setHasPermission(status === 'granted');
+      })();
+    }, []);
+
+    
+    useEffect(() => {
+      if(torchState){
+        Camera.Constants.FlashMode = "torch";
+      }
+    }, [torchState]);
+  
+    if (hasPermission === null) {
+      return <Text>Null access to camera</Text>;
+    }
+    if (hasPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+
     const menuItens = [
       {
         iconName: "whatsapp",
@@ -97,6 +124,14 @@ export default function App() {
         },
       },
       {
+        iconName: "lightbulb",
+        iconType: "font-awesome-5",
+        text: "Lanterna",
+        clickFunction: () => {
+          setTorchState(!torchState);
+        },
+      },
+      {
         iconName: "plus",
         iconType: "font-awesome",
         text: "Mais",
@@ -111,7 +146,7 @@ export default function App() {
           <View style={{display:"flex", flexDirection:"row", flexWrap:"wrap", marginTop:30}}>
             {menuItens.map((a) => {
               return (
-                <View style={{width:"50%",alignItems:"center"}}>
+                <View key={a.text} style={{width:"50%",alignItems:"center"}}>
                   <MenuCard
                     iconName={a.iconName}
                     iconType={a.iconType}
@@ -121,6 +156,7 @@ export default function App() {
                 </View>
               );
             })}
+            <Camera flashMode={torchState?'torch':'off'}></Camera>
           </View>
         <StatusBar style="auto" />
       </ScrollView>
