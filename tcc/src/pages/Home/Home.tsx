@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Linking, ScrollView } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { Styles } from "./Home.style";
@@ -7,184 +7,183 @@ import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 
 export default function App() {
-    const navigation = useNavigation();
-    const [torchState, setTorchState] = useState(false);
+  const navigation = useNavigation();
+  const [torchState, setTorchState] = useState(false);
 
-    const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-    const [type, setType] = useState(Camera.Constants.Type.back);
-  
-    useEffect(() => {
-      (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
-      })();
-    }, []);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
 
-    
-    useEffect(() => {
-      if(torchState){
-        Camera.Constants.FlashMode = "torch";
-      }
-    }, [torchState]);
-  
-    if (hasPermission === null) {
-      return <Text>Null access to camera</Text>;
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+
+  useEffect(() => {
+    if (torchState) {
+      Camera.Constants.FlashMode = "torch";
     }
-    if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
-    }
+  }, [torchState]);
 
-    const menuItens = [
-      {
-        iconName: "whatsapp",
-        iconType: "font-awesome",
-        text: "Whatsapp",
-        clickFunction: () => {
-          Linking.openURL("whatsapp://send?text=Oi");
-        },
-      },
-      {
-        iconName: "facebook",
-        iconType: "font-awesome",
-        text: "Facebook",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "phone",
-        iconType: "font-awesome",
-        text: "Chamadas",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "image",
-        iconType: "font-awesome",
-        text: "Fotos",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "camera",
-        iconType: "font-awesome",
-        text: "Camera",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "microphone",
-        iconType: "font-awesome",
-        text: "Microfone",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "search",
-        iconType: "font-awesome",
-        text: "Lupa",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "user-plus",
-        iconType: "font-awesome",
-        text: "Criar Contato",
-        clickFunction: () => {
-            navigation.navigate('NewContact', {param: 'create'});
-        },
-      },
-      {
-        iconName: "first-aid",
-        iconType: "font-awesome-5",
-        text: "Emergência",
-        clickFunction: () => {
-          navigation.navigate('ListEmergencyContacts', {contact: null})
-        },
-      },
-      {
-        iconName: "capsules",
-        iconType: "font-awesome-5",
-        text: "Remédios",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-      {
-        iconName: "users",
-        iconType: "font-awesome",
-        text: "Contatos",
-        clickFunction: () => {
-          navigation.navigate('ListContacts', {isEmergency: false})
-        },
-      },
-      {
-        iconName: "lightbulb",
-        iconType: "font-awesome-5",
-        text: "Lanterna",
-        clickFunction: () => {
-          setTorchState(!torchState);
-        },
-      },
-      {
-        iconName: "plus",
-        iconType: "font-awesome",
-        text: "Mais",
-        clickFunction: () => {
-          Linking.openURL("facebook://app");
-        },
-      },
-    ];
-
-    return (
-      <ScrollView>
-          <View style={{display:"flex", flexDirection:"row", flexWrap:"wrap", marginTop:30}}>
-            {menuItens.map((a) => {
-              return (
-                <View key={a.text} style={{width:"50%",alignItems:"center"}}>
-                  <MenuCard
-                    iconName={a.iconName}
-                    iconType={a.iconType}
-                    text={a.text}
-                    clickFunction={a.clickFunction}
-                  ></MenuCard>
-                </View>
-              );
-            })}
-            <Camera flashMode={torchState?'torch':'off'}></Camera>
-          </View>
-        <StatusBar style="auto" />
-      </ScrollView>
-    );
+  if (hasPermission === null) {
+    return <Text>Null access to camera</Text>;
   }
-  
-  type CardProps = {
-    iconName: string;
-    iconType: string;
-    text: string;
-    clickFunction: Function;
-  };
-  const MenuCard = ({ iconName, iconType, text, clickFunction }: CardProps) => {
-    return (
-      <React.Fragment>
-        <Card containerStyle={Styles.card}>
-          <Icon
-            onPress={() => {
-              clickFunction();
-            }}
-            name={iconName}
-            type={iconType}
-            color="white"
-            iconStyle={Styles.icon}
-          />
-        </Card>
-        <Text style={Styles.cardText}>{text}</Text>
-      </React.Fragment>
-    );
-  };
-  
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
+  const menuItens = [
+    {
+      iconName: "whatsapp",
+      iconType: "font-awesome",
+      text: "Whatsapp",
+      clickFunction: () => {
+        Linking.openURL("whatsapp://send?text=Oi");
+      },
+    },
+    {
+      iconName: "facebook",
+      iconType: "font-awesome",
+      text: "Facebook",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+    {
+      iconName: "phone",
+      iconType: "font-awesome",
+      text: "Chamadas",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+    {
+      iconName: "image",
+      iconType: "font-awesome",
+      text: "Fotos",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+    {
+      iconName: "camera",
+      iconType: "font-awesome",
+      text: "Camera",
+      clickFunction: () => {
+        navigation.navigate('Camera', { zoomMode: false });
+      },
+    },
+    {
+      iconName: "microphone",
+      iconType: "font-awesome",
+      text: "Microfone",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+    {
+      iconName: "search",
+      iconType: "font-awesome",
+      text: "Lupa",
+      clickFunction: () => {
+        navigation.navigate('Camera', { zoomMode: true });
+      },
+    },
+    {
+      iconName: "user-plus",
+      iconType: "font-awesome",
+      text: "Criar Contato",
+      clickFunction: () => {
+        navigation.navigate('NewContact', { param: 'create' });
+      },
+    },
+    {
+      iconName: "first-aid",
+      iconType: "font-awesome-5",
+      text: "Emergência",
+      clickFunction: () => {
+        navigation.navigate('ListEmergencyContacts', { contact: null })
+      },
+    },
+    {
+      iconName: "capsules",
+      iconType: "font-awesome-5",
+      text: "Remédios",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+    {
+      iconName: "users",
+      iconType: "font-awesome",
+      text: "Contatos",
+      clickFunction: () => {
+        navigation.navigate('ListContacts', { isEmergency: false })
+      },
+    },
+    {
+      iconName: "lightbulb",
+      iconType: "font-awesome-5",
+      text: "Lanterna",
+      clickFunction: () => {
+        setTorchState(!torchState);
+      },
+    },
+    {
+      iconName: "plus",
+      iconType: "font-awesome",
+      text: "Mais",
+      clickFunction: () => {
+        Linking.openURL("facebook://app");
+      },
+    },
+  ];
+
+  return (
+    <ScrollView>
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 30 }}>
+        {menuItens.map((a) => {
+          return (
+            <View key={a.text} style={{ width: "50%", alignItems: "center" }}>
+              <MenuCard
+                iconName={a.iconName}
+                iconType={a.iconType}
+                text={a.text}
+                clickFunction={a.clickFunction}
+              ></MenuCard>
+            </View>
+          );
+        })}
+        <Camera flashMode={torchState ? 'torch' : 'off'}></Camera>
+      </View>
+      <StatusBar style="auto" />
+    </ScrollView>
+  );
+}
+
+type CardProps = {
+  iconName: string;
+  iconType: string;
+  text: string;
+  clickFunction: Function;
+};
+const MenuCard = ({ iconName, iconType, text, clickFunction }: CardProps) => {
+  return (
+    <React.Fragment>
+      <Card containerStyle={Styles.card}>
+        <Icon
+          onPress={() => {
+            clickFunction();
+          }}
+          name={iconName}
+          type={iconType}
+          color="white"
+          iconStyle={Styles.icon}
+        />
+      </Card>
+      <Text style={Styles.cardText}>{text}</Text>
+    </React.Fragment>
+  );
+};
