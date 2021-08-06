@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Text, View, Linking, ScrollView } from "react-native";
+import { Text, View, Linking, ScrollView, Platform } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { Styles } from "./Home.style";
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
+import AppLink from 'react-native-app-link';
 
 export default function App() {
   const navigation = useNavigation();
@@ -40,7 +41,12 @@ export default function App() {
       iconType: "font-awesome",
       text: "Whatsapp",
       clickFunction: () => {
-        Linking.openURL("whatsapp://send?text=Oi");
+        AppLink.maybeOpenURL("whatsapp://app", {
+          appName: "Whatsapp",
+          appStoreId: 310633997,
+          appStoreLocale: 'br',
+          playStoreId: "com.whatsapp"
+        });
       },
     },
     {
@@ -48,7 +54,7 @@ export default function App() {
       iconType: "font-awesome",
       text: "Facebook",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        Linking.openURL("https://www.facebook.com/");
       },
     },
     {
@@ -64,8 +70,17 @@ export default function App() {
       iconType: "font-awesome",
       text: "Fotos",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
-      },
+        switch (Platform.OS) {
+          case "ios":
+            Linking.openURL("photos-redirect://");
+            break;
+          case "android":
+            Linking.openURL("content://media/internal/images/media");
+            break;
+          default:
+            console.log("Could not open gallery app");
+        }
+      }
     },
     {
       iconName: "camera",
