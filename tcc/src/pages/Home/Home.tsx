@@ -157,8 +157,8 @@ export default function App() {
   ];
 
   return (
-    <ScrollView>
-      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 30 }}>
+    <ScrollView style={{borderTopWidth:30, borderTopColor:"purple"}}>
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
         {menuItens.map((a) => {
           return (
             <View key={a.text} style={{ width: "50%", alignItems: "center" }}>
