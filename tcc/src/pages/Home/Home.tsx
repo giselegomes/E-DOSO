@@ -85,7 +85,7 @@ export default function App() {
         iconType: "font-awesome-5",
         text: "Remédios",
         clickFunction: () => {
-          Linking.openURL("facebook://app");
+          navigation.navigate('NewMedicine', {param: 'create'});
         },
       },
       {
