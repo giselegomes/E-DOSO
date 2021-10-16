@@ -62,7 +62,7 @@ export default function App() {
       iconType: "font-awesome",
       text: "Chamadas",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        // Linking.openURL(`tel`);
       },
     },
     {
