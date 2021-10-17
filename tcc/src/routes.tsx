@@ -5,7 +5,7 @@ import Home from './pages/Home/Home';
 import NewContact from './pages/Contacts/NewContacts/NewContact';
 import ListContacts from './pages/Contacts/ListContacts/ListContacts';
 import ShowContact from './pages/Contacts/ShowContact/ShowContact';
-import NewMedicine from './pages/MedicineManagement/MedicineManagement';
+import NewMedicine from './pages/MedicineManagement/ListMedicine/ListMedicine';
 import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContacts/ListEmergencyContacts';
 
 const AppStack = createStackNavigator();

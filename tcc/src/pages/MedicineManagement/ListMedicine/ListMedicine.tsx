@@ -1,11 +1,10 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { ScrollView, View, Text, StatusBar } from "react-native";
+import { ScrollView, View, Text, StatusBar, Button } from "react-native";
 
 
 const NewMedicine = () => {
 	const navigation = useNavigation();
-
 	return (
 		<ScrollView >
             <StatusBar 
@@ -13,14 +12,21 @@ const NewMedicine = () => {
             backgroundColor="transparent"
             translucent/>
             
-            <View style={{ backgroundColor: 'purple' }}>
+            <View style={{ backgroundColor: 'purple'}}>
                 <Text>
                     Remédios
                 </Text>
             </View>
-        </ScrollView>
 
-	)
+            <View>
+                <Button
+                    onPress={() => navigation.navigate('NewMedicine')}
+                    title="Adicionar Lembrete"
+                    accessibilityLabel="Adicione um lembrete de remédio"
+                />
+            </View>
+        </ScrollView>
+    )
 }
 
 export default NewMedicine;
