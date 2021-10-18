@@ -129,13 +129,13 @@ export default function App() {
       clickFunction: () => {
         Linking.openURL("facebook://app");
       },
-    },
-    {
-      iconName: "users",
-      iconType: "font-awesome",
-      text: "Contatos",
-      clickFunction: () => {
-        navigation.navigate('ListContacts', { isEmergency: false })
+      {
+        iconName: "capsules",
+        iconType: "font-awesome-5",
+        text: "Remédios",
+        clickFunction: () => {
+          navigation.navigate('ListMedicine', {param: 'create'});
+        },
       },
     },
     {
