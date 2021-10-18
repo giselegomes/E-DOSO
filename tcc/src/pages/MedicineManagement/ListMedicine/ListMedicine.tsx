@@ -1,32 +1,29 @@
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from '@react-navigation/native';
 import React from "react";
-import { ScrollView, View, Text, StatusBar, Button } from "react-native";
+import { ScrollView, View, Text, StatusBar , Button} from "react-native";
+import { Header } from '../../../components/Header/Header';
+import { Styles } from '../ListMedicine/ListMedicine.style';
 
 
-const NewMedicine = () => {
+const ListMedicine = () => {
 	const navigation = useNavigation();
+
 	return (
 		<ScrollView >
-            <StatusBar 
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent/>
-            
-            <View style={{ backgroundColor: 'purple'}}>
-                <Text>
-                    Remédios
-                </Text>
-            </View>
+            <Header
+                title="Medicamentos"
+            />
 
             <View>
                 <Button
-                    onPress={() => navigation.navigate('NewMedicine')}
+                    onPress={() => navigation.navigate('NewMedicine') } 
                     title="Adicionar Lembrete"
                     accessibilityLabel="Adicione um lembrete de remédio"
                 />
             </View>
         </ScrollView>
-    )
+
+	)
 }
 
-export default NewMedicine;
+export default ListMedicine;

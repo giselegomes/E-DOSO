@@ -85,7 +85,7 @@ export default function App() {
         iconType: "font-awesome-5",
         text: "Remédios",
         clickFunction: () => {
-          navigation.navigate('NewMedicine', {param: 'create'});
+          navigation.navigate('ListMedicine', {param: 'create'});
         },
       },
       {
