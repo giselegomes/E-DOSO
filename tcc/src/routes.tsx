@@ -8,6 +8,7 @@ import ShowContact from './pages/Contacts/ShowContact/ShowContact';
 import NewMedicine from './pages/MedicineManagement/NewMedicine/NewMedicine';
 import ListMedicine from './pages/MedicineManagement/ListMedicine/ListMedicine';
 import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContacts/ListEmergencyContacts';
+import CameraScreen from './pages/Camera/Camera';
 
 const AppStack = createStackNavigator();
 

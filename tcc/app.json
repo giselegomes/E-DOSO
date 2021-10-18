@@ -2,13 +2,13 @@
   "expo": {
     "name": "tcc",
     "slug": "tcc",
-    "version": "1.0.0",
+    "version": "1.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/idoso.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#800080"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
     "android": {
       "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL", "WRITE_CONTACTS" ],
       "package": "com.thebesttcc.tcc",
-      "versionCode": 1
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"
