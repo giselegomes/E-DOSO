@@ -26,23 +26,26 @@ const ListContacts = () => {
 
     useEffect(() => {
         const loadContacts = async () => {
-            const data = await Contacts.getContactsAsync({
-                fields: [Contacts.Fields.PhoneNumbers],
-            });
-            const image = await Contacts.getContactsAsync({
-                fields: [Contacts.Fields.Image],
-            });
- 
-            const contacts = data.data.map((item: any, key: number) => {
-                return {
-                    name: item.name,
-                    phoneNumber: item.phoneNumbers,
-                    imageContact: image.data[key].image?.uri,
-                    id: item.id,
-                }
-            })
-            setSearchedContacts(contacts);
-            setListContacts(contacts)
+            const { status } = await Contacts.requestPermissionsAsync();
+            if (status === 'granted') {
+                const data = await Contacts.getContactsAsync({
+                    fields: [Contacts.Fields.PhoneNumbers],
+                });
+                const image = await Contacts.getContactsAsync({
+                    fields: [Contacts.Fields.Image],
+                });
+     
+                const contacts = data.data.map((item: any, key: number) => {
+                    return {
+                        name: item.name,
+                        phoneNumber: item.phoneNumbers,
+                        imageContact: image.data[key].image?.uri,
+                        id: item.id,
+                    }
+                })
+                setSearchedContacts(contacts);
+                setListContacts(contacts)
+            }
         }
         loadContacts();
     }, [])

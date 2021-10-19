@@ -3,10 +3,98 @@ import { View, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'reac
 import { Styles } from './NewContact.style';
 import { Card, Icon } from 'react-native-elements';
 import ImagePicker from '../../../components/CustomImagePicker/CustomImagePicker';
-import Contacts from 'react-native-contacts';
-import { PermissionsAndroid } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import * as Contact from 'expo-contacts';
+import * as Contacts from 'expo-contacts';
+
+interface Contact {
+    id: string;
+    contactType: string;
+    name: string;
+    firstName?: string;
+    middleName?: string;
+    lastName?: string;
+    maidenName?: string;
+    namePrefix?: string;
+    nameSuffix?: string;
+    nickname?: string;
+    phoneticFirstName?: string;
+    phoneticMiddleName?: string;
+    phoneticLastName?: string;
+    company?: string;
+    jobTitle?: string;
+    department?: string;
+    note?: string;
+    imageAvailable?: boolean;
+    image?: Image;
+    rawImage?: Image;
+    birthday?: Date;
+    dates?: Date[];
+    relationships?: Relationship[];
+    emails?: Email[];
+    phoneNumbers?: PhoneNumber[];
+    addresses?: Address[];
+    instantMessageAddresses?: InstantMessageAddress[];
+    urlAddresses?: UrlAddress[];
+    nonGregorianBirthday?: Date;
+    socialProfiles?: SocialProfile[];
+    [index: string]: string | undefined | boolean | Image | Date | Relationship[] | Email[] | PhoneNumber[] | Date[] |Address[] | InstantMessageAddress[] | UrlAddress[] | SocialProfile[];
+};
+
+interface Relationship {
+    label: string;
+    name?: string;
+    id: string;
+};
+
+interface Email {
+    email?: string;
+    isPrimary?: boolean;
+    label: string;
+    id: string;
+};
+interface PhoneNumber {
+    number?: string;
+    isPrimary?: boolean;
+    digits?: string;
+    countryCode?: string;
+    label: string;
+    id: string;
+};
+interface Address {
+    street?: string;
+    city?: string;
+    country?: string;
+    region?: string;
+    neighborhood?: string;
+    postalCode?: string;
+    poBox?: string;
+    isoCountryCode?: string;
+    label: string;
+    id: string;
+};
+
+interface InstantMessageAddress {
+    service?: string;
+    username?: string;
+    localizedService?: string;
+    label: string;
+    id: string;
+};
+interface UrlAddress {
+    label: string;
+    url?: string;
+    id: string;
+};
+
+interface SocialProfile {
+    service?: string;
+    localizedProfile?: string;
+    url?: string;
+    username?: string;
+    userId?: string;
+    label: string;
+    id: string;
+};
 
 const NewContact = () => {
     const navigation = useNavigation();
@@ -25,9 +113,8 @@ const NewContact = () => {
 
     useEffect(() => {
         const loadContact = async () => {
-            const contact = await Contact.getContactByIdAsync(newContact.params.id);
+            const contact = await Contacts.getContactByIdAsync(newContact.params.id);
             if (contact) {
-                setName(contact.name);
                 if (contact.phoneNumbers) {
                     setPhone(contact.phoneNumbers[0].number);
                 }
@@ -37,9 +124,11 @@ const NewContact = () => {
                 }
             }
         }
+
         if (newContact.params.param === 'edit') {
             loadContact();
         }
+
     }, [])
 
     const toogleImagePicker = () => {
@@ -53,62 +142,51 @@ const NewContact = () => {
     }
 
     const handleNewContact = async () => {
-        PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
-        ).then(() => {
-            var newPerson = {
-                recordID: 'teste',
-                backTitle: 'teste',
-                company: 'teste',
-                emailAddresses: [{ label: 'teste', email: 'teste' }],
-                displayName: 'teste',
-                familyName: 'teste',
-                givenName: 'teste',
-                middleName: 'teste',
-                jobTitle: 'teste',
-                phoneNumbers: [{ label: 'teste', number: 'teste' }],
-                hasThumbnail: false,
-                thumbnailPath: 'teste',
-                postalAddresses: [{
-                    label: 'teste',
-                    formattedAddress: 'teste',
-                    street: 'teste',
-                    pobox: 'teste',
-                    neighborhood: 'teste',
-                    city: 'teste',
-                    region: 'teste',
-                    state: 'teste',
-                    postCode: 'teste',
-                    country: 'teste',
-                }],
-                prefix: 'teste',
-                suffix: 'teste',
-                department: 'teste',
-                birthday: { day: 1, month: 2, year: 2021 },
-                imAddresses: [{ username: 'teste', service: 'teste' }],
-                note: 'teste',
-            }
+        const { status } = await Contacts.requestPermissionsAsync();
+        if (status === "granted") {
+            const random = Math.floor(Math.random() * 100) + 1;
+            const contact = {
+                firstName: "Test",
+                lastName: "McTest",
+                contactType: "Person",
+                id: "1",
+                name: "Test",
+                phoneNumber: [
+                    {
+                        number: "12 3456-7890",
+                        isPrimary: true,
+                        digits: "1234567890",
+                        countryCode: "PA",
+                        id: 1,
+                        label: "main",
+                    }
+                ],
+                email:
+                    {
+                        email: "test@gmail.com",
+                        isPrimary: true,
+                        id: 2,
+                        label: "main",
+                    },
+            };
 
-            alert(Contacts.addContact(newPerson))
-
-        })
-            .catch((err) => {
-                alert(err);
-            })
+            const contactId = await Contacts.addContactAsync(contact);
+            alert(contactId);
+        }
     }
 
     const updateContact = async () => {
-        Contact.requestPermissionsAsync()
+        Contacts.requestPermissionsAsync()
             .then((response) => {
                 try {
                     if (response.granted) {
                         const contact = {
-                            id: newContact.params.id,
+                            id: "1",
                             contactType: 'Person',
-                            name: name,
-                            phone: phone,
+                            name: "teste",
+                            phone: "41111111",
                         };
-                        Contact.updateContactAsync(contact);
+                        // Contact.updateContactAsync(contact);
                     }
                 } catch (error) {
                     alert(error);
@@ -118,9 +196,9 @@ const NewContact = () => {
 
     const goBack = () => {
         if (newContact.params.param === 'edit') {
-            navigation.navigate('ListContacts');
+            navigation.navigate({key: 'ListContacts'});
         } else {
-            navigation.navigate('Home');
+            navigation.navigate({key: 'Home'});
         }
     }
 
@@ -174,7 +252,7 @@ const NewContact = () => {
                     value={phone}
                 />
                 <View style={{ width: '100%', flex: 1, flexDirection: 'row', marginLeft: 45 }}>
-                    <TouchableOpacity style={Styles.buttonSave} onPress={updateContact}>
+                    <TouchableOpacity style={Styles.buttonSave} onPress={handleNewContact}>
                         <Text style={Styles.buttonText}>Salvar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.buttonCancel} onPress={goBack}>
