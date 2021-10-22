@@ -15,14 +15,15 @@ const AppStack = createStackNavigator();
 export default function Routes() {
     return (
         <NavigationContainer>
-            <AppStack.Navigator screenOptions={{ headerShown: false}}>
-                <AppStack.Screen name="Home" component={Home} />                    
-                <AppStack.Screen name="NewContact" component={NewContact} />
-                <AppStack.Screen name="ListContacts" component={ListContacts} /> 
-                <AppStack.Screen name="ShowContact" component={ShowContact} />    
-                <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} />       
-                <AppStack.Screen name="NewMedicine" component={NewMedicine} />      
-                <AppStack.Screen name="ListMedicine" component={ListMedicine} />          
+            <AppStack.Navigator screenOptions={{ headerShown: true, headerStyle: {backgroundColor:"purple"},headerTintColor:"white",headerTitleStyle:{fontSize:32,paddingLeft:20}}}>
+                <AppStack.Screen name="Home" component={Home} options={{title:"E-Doso"}} />                    
+                <AppStack.Screen name="NewContact" component={NewContact} options={{title:"Novo Contato"}} />
+                <AppStack.Screen name="ListContacts" component={ListContacts} options={{title:"Contatos"}} /> 
+                <AppStack.Screen name="ShowContact" component={ShowContact} options={{title:"Contato"}} />    
+                <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} options={{title:"Contatos de Emergência"}} />       
+                <AppStack.Screen name="NewMedicine" component={NewMedicine} options={{title:"Novo Remédio"}} />      
+                <AppStack.Screen name="ListMedicine" component={ListMedicine} options={{title:"Remédios"}} />   
+                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />              
             </AppStack.Navigator>
         </NavigationContainer>
     );

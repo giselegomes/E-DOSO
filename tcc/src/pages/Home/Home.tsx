@@ -12,7 +12,6 @@ export default function App() {
   const [torchState, setTorchState] = useState(false);
 
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
     (async () => {
@@ -55,7 +54,7 @@ export default function App() {
       text: "Facebook",
       clickFunction: () => {
         Linking.openURL("https://www.facebook.com/");
-      },
+      }
     },
     {
       iconName: "phone",
@@ -127,15 +126,7 @@ export default function App() {
       iconType: "font-awesome-5",
       text: "Remédios",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
-      },
-      {
-        iconName: "capsules",
-        iconType: "font-awesome-5",
-        text: "Remédios",
-        clickFunction: () => {
-          navigation.navigate('ListMedicine', {param: 'create'});
-        },
+        navigation.navigate('ListMedicine', { param: 'create' });
       },
     },
     {
@@ -157,8 +148,8 @@ export default function App() {
   ];
 
   return (
-    <ScrollView style={{borderTopWidth:30, borderTopColor:"purple"}}>
-      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
+    <ScrollView>
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {menuItens.map((a) => {
           return (
             <View key={a.text} style={{ width: "50%", alignItems: "center" }}>
