@@ -20,7 +20,7 @@ export default function App() {
   const [cameraType, setCameraType] = React.useState(Camera.Constants.Type.back)
   const [flashMode, setFlashMode] = React.useState('off')
   const __startCamera = async () => {
-    const { status } = await Camera.requestPermissionsAsync()
+    const { status } = await Camera.requestCameraPermissionsAsync()
     console.log(params)
     console.log(status)
     if (status === 'granted') {
@@ -29,7 +29,7 @@ export default function App() {
       Alert.alert('Access denied')
     }
     if (Platform.OS !== 'web') {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert('Access denied')
       }

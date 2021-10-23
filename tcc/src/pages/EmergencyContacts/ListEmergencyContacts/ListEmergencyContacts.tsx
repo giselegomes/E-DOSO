@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-nativ
 import { Styles } from './ListEmergencyContacts.style';
 import { Card, Icon } from 'react-native-elements';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import AsyncStorage  from '@react-native-community/async-storage';
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 
 const ListEmergencyContacts = () => {
     type ParamList = {
