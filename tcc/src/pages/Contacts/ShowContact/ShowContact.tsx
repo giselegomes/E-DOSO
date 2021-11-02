@@ -95,14 +95,18 @@ const ShowContact = () => {
                             modalTitle='Tem certeza que deseja excluir esse contato ?'
                             handleFirstOption={deleteContact}
                             handleCancelOption={toogleDeleteModal}
-                            firstOptionTitle={'Excluir'} />
+                            firstOptionTitle={'Excluir'}
+                            showIcon={true} 
+                        />
                     }
                     {isOpenBlockModal &&
                         <CustomModal
                             modalTitle='Tem certeza que deseja bloquear esse contato ?'
                             handleFirstOption={blockContact}
                             handleCancelOption={toogleBlockModal}
-                            firstOptionTitle={'Bloquear'} />
+                            firstOptionTitle={'Bloquear'}
+                            showIcon={true} 
+                        />
                     }
                 </View>
                 <View style={{ display: "flex", marginTop: 10, height: 80 }}>
