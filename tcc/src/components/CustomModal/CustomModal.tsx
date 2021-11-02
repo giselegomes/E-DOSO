@@ -9,7 +9,8 @@ interface CustomModalProps {
     modalTitle: string;
     handleFirstOption: (event: GestureResponderEvent) => void
     handleSecondOption?: (event: GestureResponderEvent) => void
-    handleCancelOption: (event: GestureResponderEvent) => void
+    handleCancelOption?: (event: GestureResponderEvent) => void
+    showIcon: boolean;
 
 }
 
@@ -17,16 +18,17 @@ const CustomModal = (Props: CustomModalProps) => {
     return (
 
         <View style={Styles.modal}>
-
-            <View style={Styles.iconContainer}>
-                <Icon
+            {Props.showIcon &&
+                <View style={Styles.iconContainer}>
+                    <Icon
                     name={"times-circle"}
                     type={"font-awesome"}
                     color="white"
                     iconStyle={Styles.icon}
                     onPress={Props.handleCancelOption}
-                />
-            </View>
+                    />
+                </View>
+            }
             <Text style={Styles.modalTitle}>{Props.modalTitle}</Text>
             <TouchableOpacity style={Styles.buttonImage} onPress={Props.handleFirstOption}>
                 <Text style={Styles.buttonText}>{Props.firstOptionTitle}</Text>
