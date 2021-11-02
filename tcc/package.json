@@ -22,6 +22,7 @@
     "expo-contacts": "~10.0.3",
     "expo-font": "~10.0.3",
     "expo-image-picker": "~11.0.3",
+    "expo-intent-launcher": "~10.0.3",
     "expo-media-library": "~13.0.3",
     "expo-status-bar": "~1.1.0",
     "graphql": "^15.6.1",
