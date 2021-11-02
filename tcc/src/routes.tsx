@@ -9,6 +9,8 @@ import NewMedicine from './pages/MedicineManagement/NewMedicine/NewMedicine';
 import ListMedicine from './pages/MedicineManagement/ListMedicine/ListMedicine';
 import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContacts/ListEmergencyContacts';
 import CameraScreen from './pages/Camera/Camera';
+import Settings from './pages/Settings/Settings';
+import NewApps from './pages/NewApps/NewApps';
 
 const AppStack = createStackNavigator();
 
@@ -20,10 +22,12 @@ export default function Routes() {
                 <AppStack.Screen name="NewContact" component={NewContact} options={{title:"Novo Contato"}} />
                 <AppStack.Screen name="ListContacts" component={ListContacts} options={{title:"Contatos"}} /> 
                 <AppStack.Screen name="ShowContact" component={ShowContact} options={{title:"Contato"}} />    
-                <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} options={{title:"Contatos de Emergência"}} />       
+                <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} options={{title:"Emergência"}} />       
                 <AppStack.Screen name="NewMedicine" component={NewMedicine} options={{title:"Novo Remédio"}} />      
                 <AppStack.Screen name="ListMedicine" component={ListMedicine} options={{title:"Remédios"}} />   
-                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />              
+                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />    
+                <AppStack.Screen name="Settings" component={Settings} options={{title:"Ajustes"}} />  
+                <AppStack.Screen name="NewApps" component={NewApps} options={{title:"Mais aplicativos"}} />              
             </AppStack.Navigator>
         </NavigationContainer>
     );
