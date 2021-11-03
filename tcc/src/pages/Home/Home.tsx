@@ -114,6 +114,14 @@ export default function App() {
       },
     },
     {
+      iconName: "users",
+      iconType: "font-awesome",
+      text: "Contatos",
+      clickFunction: () => {
+        navigation.navigate('ListContacts', { isEmergency: false });
+      },
+    },
+    {
       iconName: "first-aid",
       iconType: "font-awesome-5",
       text: "Emergência",
@@ -142,7 +150,15 @@ export default function App() {
       iconType: "font-awesome",
       text: "Mais",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        navigation.navigate('NewApps');
+      },
+    },
+    {
+      iconName: "cog",
+      iconType: "font-awesome",
+      text: "ajustes",
+      clickFunction: () => {
+        navigation.navigate('Settings');
       },
     },
   ];

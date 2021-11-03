@@ -67,11 +67,6 @@ const ListContacts = () => {
 
     return (
         <ScrollView style={{ height: "100%", width: "100%", backgroundColor: 'white' }}>
-            <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                <Card containerStyle={Styles.topbar}>
-                    <Text style={Styles.cardText}>Contatos</Text>
-                </Card>
-            </View>
             <View style={Styles.listContainer}>
                 <View style={Styles.searchSection} >
                     <TextInput
