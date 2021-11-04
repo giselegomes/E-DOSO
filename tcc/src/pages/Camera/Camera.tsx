@@ -21,8 +21,6 @@ export default function App() {
   const [flashMode, setFlashMode] = React.useState('off')
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync()
-    console.log(params)
-    console.log(status)
     if (status === 'granted') {
       setStartCamera(true)
     } else {
@@ -39,7 +37,6 @@ export default function App() {
   __startCamera()
   const __takePicture = async () => {
     const photo: any = await camera.takePictureAsync()
-    console.log(photo)
     setPreviewVisible(true)
     //setStartCamera(false)
     setCapturedImage(photo)
@@ -65,10 +62,10 @@ export default function App() {
     }
   }
   const __switchCamera = () => {
-    if (cameraType === 'back') {
-      setCameraType('front')
+    if (cameraType === Camera.Constants.Type.back) {
+      setCameraType(Camera.Constants.Type.front)
     } else {
-      setCameraType('back')
+      setCameraType(Camera.Constants.Type.back)
     }
   }
   return (
@@ -84,7 +81,7 @@ export default function App() {
         ) : (
           <Camera
             type={cameraType}
-            flashMode={flashMode}
+            flashMode={flashMode == "on" ? Camera.Constants.FlashMode.on: Camera.Constants.FlashMode.off}
             zoom={params.params.zoomMode ? 1 : 0}
             style={{ flex: 1 }}
             ref={(r) => {
@@ -100,7 +97,7 @@ export default function App() {
               }}
             >
               {
-                params.params.zoomMode ?
+                !params.params.zoomMode ?
                   <View
                     style={{
                       position: 'absolute',
@@ -141,7 +138,7 @@ export default function App() {
                           fontSize: 20
                         }}
                       >
-                        {cameraType === 'front' ? '🤳' : '📷'}
+                        {cameraType === Camera.Constants.Type.front ? '🤳' : '📷'}
                       </Text>
                     </TouchableOpacity>
                   </View> 
@@ -196,7 +193,6 @@ const styles = StyleSheet.create({
 })
 
 const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
-  console.log('sdsfds', photo)
   return (
     <View
       style={{

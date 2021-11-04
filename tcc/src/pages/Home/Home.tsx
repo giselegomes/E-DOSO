@@ -20,13 +20,6 @@ export default function App() {
     })();
   }, []);
 
-
-  useEffect(() => {
-    if (torchState) {
-      Camera.Constants.FlashMode = "torch";
-    }
-  }, [torchState]);
-
   if (hasPermission === null) {
     return <Text>Null access to camera</Text>;
   }
@@ -178,7 +171,10 @@ export default function App() {
             </View>
           );
         })}
-        <Camera flashMode={torchState ? 'torch' : 'off'}></Camera>
+        {
+          torchState == true && 
+          <Camera flashMode={Camera.Constants.FlashMode.torch}></Camera>
+        }
       </View>
       <StatusBar style="auto" />
     </ScrollView>
