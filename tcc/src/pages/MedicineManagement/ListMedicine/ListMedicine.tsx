@@ -22,8 +22,6 @@ const ListMedicine = () => {
 
                     </FontAwesome>
                 </TouchableOpacity>
-
-                
             </View>
         </ScrollView>
 

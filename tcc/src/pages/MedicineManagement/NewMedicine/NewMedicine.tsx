@@ -1,7 +1,7 @@
 import React from "react";
-import { ScrollView, View, Text, StatusBar } from "react-native";
+import { ScrollView, View, TextInput, StatusBar } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-
+import RNPickerSelect from 'react-native-picker-select';
 
 const NewMedicine = () => {
 
@@ -10,7 +10,30 @@ const NewMedicine = () => {
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="transparent"
-                translucent />
+                translucent 
+            />
+            
+            <TextInput
+                placeholder="Nome:" 
+            />
+
+            <TextInput
+                placeholder="Horário inicial:" 
+            />
+
+            <TextInput
+                placeholder="Repedir de:" 
+            />
+
+            <RNPickerSelect
+            
+            items={[
+                { label: 'Football', value: 'football' },
+                { label: 'Baseball', value: 'baseball' },
+                { label: 'Hockey', value: 'hockey' },
+            ]}
+        />
+
         </ScrollView>
     )
 }
