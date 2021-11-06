@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const Styles = StyleSheet.create({
   topbar: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
