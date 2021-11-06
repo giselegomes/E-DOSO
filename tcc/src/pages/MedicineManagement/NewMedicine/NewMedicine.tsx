@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View, TextInput, StatusBar } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import RNPickerSelect from 'react-native-picker-select';
+// import RNPickerSelect from 'react-native-picker-select';
 
 const NewMedicine = () => {
 
@@ -22,17 +22,17 @@ const NewMedicine = () => {
             />
 
             <TextInput
-                placeholder="Repedir de:" 
+                placeholder="Repetir de:" 
             />
 
-            <RNPickerSelect
+            {/* <RNPickerSelect
             
             items={[
                 { label: 'Football', value: 'football' },
                 { label: 'Baseball', value: 'baseball' },
                 { label: 'Hockey', value: 'hockey' },
             ]}
-        />
+        /> */}
 
         </ScrollView>
     )
