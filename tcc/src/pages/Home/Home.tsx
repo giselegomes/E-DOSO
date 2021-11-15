@@ -6,12 +6,14 @@ import { Styles } from "./Home.style";
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import AppLink from 'react-native-app-link';
+import VoiceRecord from "../../components/VoiceRecorder/VoiceRecorder";
 
 export default function App() {
   const navigation = useNavigation();
   const [torchState, setTorchState] = useState(false);
 
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [isRecordingVoice, setIsRecordingVoice] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -94,7 +96,7 @@ export default function App() {
       iconType: "font-awesome",
       text: "Microfone",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        setIsRecordingVoice(true);
       },
     },
     {
@@ -163,9 +165,23 @@ export default function App() {
     },
   ];
 
+  const handleVoiceRecordResults = (results: string[]) => {
+    const convertedResults  = results.map(item => item.toUpperCase());
+    menuItens.map(item => {
+    if (convertedResults.includes(item.text.toUpperCase())) {
+      item.clickFunction();
+    }
+    })
+  };
+
   return (
     <ScrollView>
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        {isRecordingVoice && (
+          <VoiceRecord 
+            handleVoiceRecordResults={handleVoiceRecordResults} 
+          />
+        )}
         {menuItens.map((a) => {
           return (
             <View key={a.text} style={{ width: "50%", alignItems: "center" }}>
