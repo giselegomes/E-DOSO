@@ -5,6 +5,15 @@
     "version": "1.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "plugins": [
+      [
+        "@react-native-voice/voice",
+        {
+          "microphonePermission": "Permitir acesso ao microfone",
+          "speechRecogntionPermission": "Permitir reconhecimento de voz"
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/idoso.png",
       "resizeMode": "contain",
@@ -17,18 +26,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thebesttcc.tcc"
     },
     "android": {
-      "permissions": [ 
-        "CAMERA", 
-        "WRITE_EXTERNAL_STORAGE", 
-        "CAMERA_ROLL", 
-        "WRITE_CONTACTS", 
-        "READ_EXTERNAL_STORAGE", 
+      "permissions": [
+        "CAMERA",
         "WRITE_EXTERNAL_STORAGE",
+        "CAMERA_ROLL",
+        "WRITE_CONTACTS",
+        "READ_EXTERNAL_STORAGE",
         "SYSTEM_ALERT_WINDOW",
-        "SET_ALARM" 
+        "SET_ALARM",
+        "android.permission.RECORD_AUDIO"
       ],
       "package": "com.thebesttcc.tcc",
       "versionCode": 5
