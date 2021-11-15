@@ -54,7 +54,8 @@ const CustomImagePicker = (Props: CustomImagePickerProps) => {
       handleSecondOption={openCamera}
       handleCancelOption={Props.toogleImagePicker}
       firstOptionTitle={'Escolher da galeria'}
-      secondOptionTitle={'Tirar nova foto'} />
+      secondOptionTitle={'Tirar nova foto'} 
+      showIcon={true}/>
   );
 }
 
