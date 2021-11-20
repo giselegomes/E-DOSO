@@ -149,7 +149,7 @@ export default function App() {
     {
       iconName: "cog",
       iconType: "font-awesome",
-      text: "ajustes",
+      text: "Ajustes",
       clickFunction: () => {
         navigation.navigate('Settings');
       },

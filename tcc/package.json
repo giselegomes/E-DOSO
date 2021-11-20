@@ -29,7 +29,7 @@
     "graphql": "^15.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "0.64.2",
+    "react-native": "^0.64.3",
     "react-native-app-link": "^1.0.1",
     "react-native-contacts": "^7.0.0",
     "react-native-easy-grid": "^0.2.2",
