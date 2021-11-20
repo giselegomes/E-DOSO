@@ -144,31 +144,20 @@ const NewContact = () => {
     const handleNewContact = async () => {
         const { status } = await Contacts.requestPermissionsAsync();
         if (status === "granted") {
-            const random = Math.floor(Math.random() * 100) + 1;
             const contact = {
-                firstName: "Test",
-                lastName: "McTest",
-                contactType: "Person",
+                contactType: "person",
                 id: "1",
                 name: "Test",
-                phoneNumber: [
+                phoneNumbers: [
                     {
                         number: "12 3456-7890",
                         isPrimary: true,
                         digits: "1234567890",
-                        countryCode: "PA",
-                        id: 1,
+                        id: "1",
                         label: "main",
-                    }
-                ],
-                email:
-                    {
-                        email: "test@gmail.com",
-                        isPrimary: true,
-                        id: 2,
-                        label: "main",
-                    },
-            };
+                    } as Contacts.PhoneNumber
+                ]
+            } as Contacts.Contact;
 
             const contactId = await Contacts.addContactAsync(contact);
             alert(contactId);

@@ -6,12 +6,14 @@ import { Styles } from "./Home.style";
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import AppLink from 'react-native-app-link';
+import VoiceRecord from "../../components/VoiceRecorder/VoiceRecorder";
 
 export default function App() {
   const navigation = useNavigation();
   const [torchState, setTorchState] = useState(false);
 
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [isRecordingVoice, setIsRecordingVoice] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -19,13 +21,6 @@ export default function App() {
       setHasPermission(status === 'granted');
     })();
   }, []);
-
-
-  useEffect(() => {
-    if (torchState) {
-      Camera.Constants.FlashMode = "torch";
-    }
-  }, [torchState]);
 
   if (hasPermission === null) {
     return <Text>Null access to camera</Text>;
@@ -94,7 +89,7 @@ export default function App() {
       iconType: "font-awesome",
       text: "Microfone",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        setIsRecordingVoice(true);
       },
     },
     {
@@ -111,6 +106,14 @@ export default function App() {
       text: "Criar Contato",
       clickFunction: () => {
         navigation.navigate('NewContact', { param: 'create' });
+      },
+    },
+    {
+      iconName: "users",
+      iconType: "font-awesome",
+      text: "Contatos",
+      clickFunction: () => {
+        navigation.navigate('ListContacts', { isEmergency: false });
       },
     },
     {
@@ -142,14 +145,36 @@ export default function App() {
       iconType: "font-awesome",
       text: "Mais",
       clickFunction: () => {
-        Linking.openURL("facebook://app");
+        navigation.navigate('NewApps');
+      },
+    },
+    {
+      iconName: "cog",
+      iconType: "font-awesome",
+      text: "Ajustes",
+      clickFunction: () => {
+        navigation.navigate('Settings');
       },
     },
   ];
 
+  const handleVoiceRecordResults = (results: string[]) => {
+    const convertedResults  = results.map(item => item.toUpperCase());
+    menuItens.map(item => {
+    if (convertedResults.includes(item.text.toUpperCase())) {
+      item.clickFunction();
+    }
+    })
+  };
+
   return (
     <ScrollView>
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        {isRecordingVoice && (
+          <VoiceRecord 
+            handleVoiceRecordResults={handleVoiceRecordResults} 
+          />
+        )}
         {menuItens.map((a) => {
           return (
             <View key={a.text} style={{ width: "50%", alignItems: "center" }}>
@@ -162,7 +187,10 @@ export default function App() {
             </View>
           );
         })}
-        <Camera flashMode={torchState ? 'torch' : 'off'}></Camera>
+        {
+          torchState == true && 
+          <Camera flashMode={Camera.Constants.FlashMode.torch}></Camera>
+        }
       </View>
       <StatusBar style="auto" />
     </ScrollView>

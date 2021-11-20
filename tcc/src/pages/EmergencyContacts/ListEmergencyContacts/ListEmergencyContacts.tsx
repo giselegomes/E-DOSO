@@ -59,11 +59,6 @@ const ListEmergencyContacts = () => {
 
     return (
         <ScrollView style={{ height: "100%", width: "100%", backgroundColor: 'white' }}>
-            <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                <Card containerStyle={Styles.topbar}>
-                    <Text style={Styles.cardText}>Contatos de emergência</Text>
-                </Card>
-            </View>
             <View style={Styles.listContainer}>
                 <TouchableOpacity style={Styles.searchSection} onPress={redirectToContact}>
                 <Text style={Styles.addContact}>Adicionar contato</Text>
@@ -80,7 +75,7 @@ const ListEmergencyContacts = () => {
                                 <Text 
                                   key={key} 
                                   style={key === 0 ? Styles.firstContact : Styles.contacts}>
-                                  {item.name}
+                                  {item?.name}
                                 </Text>
                             )
                         })

@@ -9,9 +9,9 @@ import AppLoading from 'expo-app-loading'
       Inter_900Black,
   });
 
-  if(!fontsLoaded){
-      return <AppLoading/>
-  }
+if(!fontsLoaded){
+    return <AppLoading/>
+}
 
     return (
       <Routes />

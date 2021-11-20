@@ -57,8 +57,8 @@ const ListContacts = () => {
         setSearchedContacts(results);
     };
 
-    const redirectToShowContact = (phoneNumber: number, image: string, id: string) => {
-        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image, id: id });
+    const redirectToShowContact = (phoneNumber: number, image: string, id: string, name: string) => {
+        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image, id: id, contactName: name });
     }
 
     const addToEmergencyContact = (contact: any) => {
@@ -67,11 +67,6 @@ const ListContacts = () => {
 
     return (
         <ScrollView style={{ height: "100%", width: "100%", backgroundColor: 'white' }}>
-            <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                <Card containerStyle={Styles.topbar}>
-                    <Text style={Styles.cardText}>Contatos</Text>
-                </Card>
-            </View>
             <View style={Styles.listContainer}>
                 <View style={Styles.searchSection} >
                     <TextInput
@@ -98,7 +93,7 @@ const ListContacts = () => {
                                     isEmergency ?
                                       () => addToEmergencyContact(item)
                                       :
-                                      () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id)
+                                      () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)
                                     }>
                                   {item.name}
                                 </Text>
