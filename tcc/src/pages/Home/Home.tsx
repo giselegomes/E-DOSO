@@ -89,7 +89,7 @@ export default function App() {
       iconType: "font-awesome",
       text: "Microfone",
       clickFunction: () => {
-        setIsRecordingVoice(true);
+        setIsRecordingVoice(!isRecordingVoice);
       },
     },
     {
