@@ -22,10 +22,24 @@
     "android": {
       "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL", "WRITE_CONTACTS" ],
       "package": "com.thebesttcc.tcc",
-      "versionCode": 5
+      "versionCode": 5,
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "mode": "production"
+        }
+      ]
+    ],
+    "notification": {
+      "icon": "./assets/icon.png"
     }
-  }
+  } 
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "809081635510",
+    "project_id": "e-doso-e04ab",
+    "storage_bucket": "e-doso-e04ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809081635510:android:d38661fa34c4dc7c725c17",
+        "android_client_info": {
+          "package_name": "com.thebesttcc.tcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809081635510-uau8btlvdlnidctdu1oq3ijj6diqbuek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGFnAgW2xe-5kp8ExkFWq8kabFM6bOICc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809081635510-uau8btlvdlnidctdu1oq3ijj6diqbuek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
