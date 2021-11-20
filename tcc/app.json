@@ -2,7 +2,7 @@
   "expo": {
     "name": "E-doso",
     "slug": "tcc",
-    "version": "1.7",
+    "version": "1.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "plugins": [
@@ -41,7 +41,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.thebesttcc.tcc",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"
