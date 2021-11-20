@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 24
+        // paddingHorizontal: 24
 
     },
     title: {
@@ -23,8 +23,6 @@ export const styles = StyleSheet.create({
         fontSize: 28,
         color: theme.colors.textTitleColor,
         textTransform: 'uppercase',
-        fontFamily: theme.fonts.titleHeader
-
-
+        fontFamily: theme.fonts.titleHeader,
     }
 });

@@ -13,13 +13,15 @@ const ShowContact = () => {
 
     type ParamList = {
         ShowContact: {
+            contactName: string;
             contactNumber: string;
             imageContact: string;
             id: string;
         };
     };
     const contact = useRoute<RouteProp<ParamList, 'ShowContact'>>();
-    const number = contact.params.contactNumber
+    const number = contact.params.contactNumber;
+    const name = contact.params.contactName;
     const image = contact.params.imageContact;
     const id = contact.params.id;
     const [isOpenModal, setisOpenModal] = useState(false);
@@ -112,7 +114,7 @@ const ShowContact = () => {
                 <View style={{ display: "flex", marginTop: 10, height: 80 }}>
                     <Card containerStyle={Styles.teste}>
                         <View style={Styles.topbar}>
-                            <Text style={Styles.cardText}>Contato</Text>
+                            <Text style={Styles.cardText}>{name}</Text>
                             <View style={{ width: 20, height: 50, }}>
                                 <TouchableOpacity onPress={handleModal}>
                                     <Icon
