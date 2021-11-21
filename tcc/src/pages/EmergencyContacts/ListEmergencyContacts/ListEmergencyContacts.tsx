@@ -34,6 +34,7 @@ const ListEmergencyContacts = () => {
         const addEmergencyContact = async () => {    
             try {
                 searchedContacts.push(contact)
+                console.log(contact)
                 await AsyncStorage.setItem('EmergencyContacts', JSON.stringify(searchedContacts));
                 setSearchedContacts([...searchedContacts]);
             } catch(error) {
@@ -53,14 +54,18 @@ const ListEmergencyContacts = () => {
         setSearchedContacts(results);
     };
 
-    const redirectToContact = () => {
+    const redirectToListContacts = () => {
         navigation.navigate('ListContacts', {isEmergency: true});
+    }
+
+    const redirectToShowContact = (phoneNumber: number, image: string, id: string, name: string) => {
+        navigation.navigate('ShowContact', { contactNumber: phoneNumber, imageContact: image, id: id, contactName: name });
     }
 
     return (
         <ScrollView style={{ height: "100%", width: "100%", backgroundColor: 'white' }}>
             <View style={Styles.listContainer}>
-                <TouchableOpacity style={Styles.searchSection} onPress={redirectToContact}>
+                <TouchableOpacity style={Styles.searchSection} onPress={redirectToListContacts}>
                 <Text style={Styles.addContact}>Adicionar contato</Text>
                     <Icon
                         name={"plus"}
@@ -72,11 +77,13 @@ const ListEmergencyContacts = () => {
                 <View>
                     {Object.values(searchedContacts).map((item: any, key: number) => {
                          return (
+                             <TouchableOpacity onPress={() => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)}>
                                 <Text 
                                   key={key} 
                                   style={key === 0 ? Styles.firstContact : Styles.contacts}>
                                   {item?.name}
                                 </Text>
+                              </TouchableOpacity>
                             )
                         })
                         }

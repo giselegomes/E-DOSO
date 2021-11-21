@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TextInput } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Styles } from './ListContacts.style';
 import { Card, Icon } from 'react-native-elements';
 import * as Contacts from 'expo-contacts';
@@ -43,6 +43,7 @@ const ListContacts = () => {
                         id: item.id,
                     }
                 })
+                console.log(contacts)
                 setSearchedContacts(contacts);
                 setListContacts(contacts)
             }
@@ -86,17 +87,20 @@ const ListContacts = () => {
                     {searchedContacts !== undefined &&
                         searchedContacts.map((item: any, key: number) => {
                             return (
-                                <Text 
-                                  key={key} 
-                                  style={key === 0 ? Styles.firstContact : Styles.contacts} 
-                                  onPress={ 
-                                    isEmergency ?
-                                      () => addToEmergencyContact(item)
-                                      :
-                                      () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)
+                                <View key={key}>
+                                {item.phoneNumber &&
+                                    <TouchableOpacity onPress={ 
+                                        isEmergency ?
+                                        () => addToEmergencyContact(item)
+                                        :
+                                        () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)
                                     }>
-                                  {item.name}
-                                </Text>
+                                        <Text style={key === 0 ? Styles.firstContact : Styles.contacts}>
+                                            {item.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                }
+                                </View>
                             )
                         })}
                 </View>
