@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import AppLink from 'react-native-app-link';
 import VoiceRecord from "../../components/VoiceRecorder/VoiceRecorder";
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const navigation = useNavigation();
@@ -14,7 +15,22 @@ export default function App() {
 
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-
+  
+  useEffect(() => {
+    const getTutorial = async () => {
+        try {
+            let data: any = await AsyncStorage.getItem('tutorial');
+            if(data == null) {
+              navigation.navigate('Tutorial');
+            }
+        }
+        catch(error) {
+            alert(error)
+        }
+    }
+    getTutorial();
+  }, [])
+  
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
