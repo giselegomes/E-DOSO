@@ -11,6 +11,7 @@ import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContac
 import CameraScreen from './pages/Camera/Camera';
 import Settings from './pages/Settings/Settings';
 import NewApps from './pages/NewApps/NewApps';
+import Tutorial from './pages/Settings/tutorial/TutorialPage';
 
 const AppStack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export default function Routes() {
                 <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />    
                 <AppStack.Screen name="Settings" component={Settings} options={{title:"Ajustes"}} />  
                 <AppStack.Screen name="NewApps" component={NewApps} options={{title:"Mais aplicativos"}} />              
+                <AppStack.Screen name="Tutorial" component={Tutorial} options={{title:"Tutorial"}} />              
             </AppStack.Navigator>
         </NavigationContainer>
     );

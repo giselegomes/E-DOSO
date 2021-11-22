@@ -97,25 +97,16 @@ const NewContact = () => {
 
     const goBack = () => {
         if (newContact.params.param === 'edit') {
-            navigation.navigate({key: 'ListContacts'});
+            navigation.navigate('ListContacts');
         } else {
-            navigation.navigate({key: 'Home'});
+            navigation.navigate('Home');
         }
     }
 
     return (
         <ScrollView >
-            <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                <Card containerStyle={Styles.topbar}>
-                    {newContact.params.param === 'edit' ?
-                    <Text style={Styles.cardText}>Editar contato</Text>
-                    :
-                    <Text style={Styles.cardText}>Adicionar contato</Text>                    
-                    }
-                </Card>
-            </View>
             <View >
-                <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
+                <View style={{ width: "100%", alignItems: "center", marginTop: 50 }}>
                     {statusImagePicker &&
                         <ImagePicker toogleImagePicker={toogleImagePicker} toogleSetImage={toogleSetImage} />
                     }

@@ -1,20 +1,22 @@
 import { StyleSheet } from "react-native";
 
 export const Styles = StyleSheet.create({
+    container: {
+      flex: 1,  
+      alignItems: 'center',  
+      justifyContent: 'center',  
+    },
     modal: {
-        width: '85%', 
-        borderWidth: 1,
-        borderColor: '#715071',
-        borderRadius: 6, 
-        position: 'absolute', 
-        backgroundColor: 'white', 
-        zIndex: 1, 
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: "center",
-        alignContent: 'center',
-        justifyContent: 'center',
-        paddingBottom: 20,
+      justifyContent: 'center',  
+      alignItems: 'center',   
+      backgroundColor : "white",   
+      height: 300 ,  
+      width: '80%',  
+      borderRadius:10,  
+      borderWidth: 1,  
+      borderColor: '#715071',    
+      marginTop: 80,  
+      marginLeft: 40, 
     },
     buttonImage: {
         backgroundColor: 'rgba(128, 0, 128, 0.8)',
