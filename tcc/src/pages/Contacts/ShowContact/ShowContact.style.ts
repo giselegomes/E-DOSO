@@ -6,18 +6,11 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  teste: {
-    backgroundColor: "rgba(128, 0, 128, 0.8)",
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-    height: 60,
-    justifyContent: 'center',
-
+    width: 200,
   },
   cardText: {
     fontSize: 24,
-    color: "white",
+    color: "black",
   },
   imageContainer: {
     borderWidth: 0,

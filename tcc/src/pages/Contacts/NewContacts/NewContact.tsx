@@ -6,96 +6,6 @@ import ImagePicker from '../../../components/CustomImagePicker/CustomImagePicker
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import * as Contacts from 'expo-contacts';
 
-interface Contact {
-    id: string;
-    contactType: string;
-    name: string;
-    firstName?: string;
-    middleName?: string;
-    lastName?: string;
-    maidenName?: string;
-    namePrefix?: string;
-    nameSuffix?: string;
-    nickname?: string;
-    phoneticFirstName?: string;
-    phoneticMiddleName?: string;
-    phoneticLastName?: string;
-    company?: string;
-    jobTitle?: string;
-    department?: string;
-    note?: string;
-    imageAvailable?: boolean;
-    image?: Image;
-    rawImage?: Image;
-    birthday?: Date;
-    dates?: Date[];
-    relationships?: Relationship[];
-    emails?: Email[];
-    phoneNumbers?: PhoneNumber[];
-    addresses?: Address[];
-    instantMessageAddresses?: InstantMessageAddress[];
-    urlAddresses?: UrlAddress[];
-    nonGregorianBirthday?: Date;
-    socialProfiles?: SocialProfile[];
-    [index: string]: string | undefined | boolean | Image | Date | Relationship[] | Email[] | PhoneNumber[] | Date[] |Address[] | InstantMessageAddress[] | UrlAddress[] | SocialProfile[];
-};
-
-interface Relationship {
-    label: string;
-    name?: string;
-    id: string;
-};
-
-interface Email {
-    email?: string;
-    isPrimary?: boolean;
-    label: string;
-    id: string;
-};
-interface PhoneNumber {
-    number?: string;
-    isPrimary?: boolean;
-    digits?: string;
-    countryCode?: string;
-    label: string;
-    id: string;
-};
-interface Address {
-    street?: string;
-    city?: string;
-    country?: string;
-    region?: string;
-    neighborhood?: string;
-    postalCode?: string;
-    poBox?: string;
-    isoCountryCode?: string;
-    label: string;
-    id: string;
-};
-
-interface InstantMessageAddress {
-    service?: string;
-    username?: string;
-    localizedService?: string;
-    label: string;
-    id: string;
-};
-interface UrlAddress {
-    label: string;
-    url?: string;
-    id: string;
-};
-
-interface SocialProfile {
-    service?: string;
-    localizedProfile?: string;
-    url?: string;
-    username?: string;
-    userId?: string;
-    label: string;
-    id: string;
-};
-
 const NewContact = () => {
     const navigation = useNavigation();
     const [name, setName] = useState('');
@@ -148,6 +58,8 @@ const NewContact = () => {
                 contactType: "person",
                 id: "1",
                 name: "Test",
+                imageAvailable: true,
+                image: image,
                 phoneNumbers: [
                     {
                         number: "12 3456-7890",
@@ -185,25 +97,16 @@ const NewContact = () => {
 
     const goBack = () => {
         if (newContact.params.param === 'edit') {
-            navigation.navigate({key: 'ListContacts'});
+            navigation.navigate('ListContacts');
         } else {
-            navigation.navigate({key: 'Home'});
+            navigation.navigate('Home');
         }
     }
 
     return (
         <ScrollView >
-            <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                <Card containerStyle={Styles.topbar}>
-                    {newContact.params.param === 'edit' ?
-                    <Text style={Styles.cardText}>Editar contato</Text>
-                    :
-                    <Text style={Styles.cardText}>Adicionar contato</Text>                    
-                    }
-                </Card>
-            </View>
             <View >
-                <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
+                <View style={{ width: "100%", alignItems: "center", marginTop: 50 }}>
                     {statusImagePicker &&
                         <ImagePicker toogleImagePicker={toogleImagePicker} toogleSetImage={toogleSetImage} />
                     }

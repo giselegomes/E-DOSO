@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TextInput } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Styles } from './ListContacts.style';
 import { Card, Icon } from 'react-native-elements';
 import * as Contacts from 'expo-contacts';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 interface Contact {
-  phoneNumber: number;
-  imageContact: string;
+    phoneNumber: number;
+    imageContact: string;
 }
 
 const ListContacts = () => {
@@ -21,35 +21,41 @@ const ListContacts = () => {
 
     const [listContacts, setListContacts] = useState<any>([]);
     const [searchedContacts, setSearchedContacts] = useState<any>();
+    const [loading, setLoading] = useState(true)
     const navigation = useNavigation();
 
 
     useEffect(() => {
         const loadContacts = async () => {
+
             const { status } = await Contacts.requestPermissionsAsync();
             if (status === 'granted') {
+
+                setLoading(true)
                 const data = await Contacts.getContactsAsync({
-                    fields: [Contacts.Fields.PhoneNumbers],
+                    fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
                 });
-                const image = await Contacts.getContactsAsync({
-                    fields: [Contacts.Fields.Image],
-                });
-     
+
                 const contacts = data.data.map((item: any, key: number) => {
                     return {
                         name: item.name,
                         phoneNumber: item.phoneNumbers,
-                        imageContact: image.data[key].image?.uri,
+                        imageContact: item.image?.uri,
                         id: item.id,
                     }
                 })
+                console.log(contacts)
                 setSearchedContacts(contacts);
                 setListContacts(contacts)
+                setLoading(false)
+            }
+            else {
+                setLoading(false)
             }
         }
         loadContacts();
     }, [])
-    
+
     const toogleSearchedContacts = (searchedValue: string) => {
         const results = listContacts.filter((contact: any) =>
             contact.name.toLowerCase().includes(searchedValue.toLowerCase()),
@@ -62,7 +68,7 @@ const ListContacts = () => {
     }
 
     const addToEmergencyContact = (contact: any) => {
-        navigation.navigate('ListEmergencyContacts', { contact: contact})
+        navigation.navigate('ListEmergencyContacts', { contact: contact })
     }
 
     return (
@@ -83,20 +89,25 @@ const ListContacts = () => {
                     />
                 </View>
                 <View>
-                    {searchedContacts !== undefined &&
+                    {loading || searchedContacts !== undefined ?
+                        <Text>Carregando...</Text>
+                        :
                         searchedContacts.map((item: any, key: number) => {
                             return (
-                                <Text 
-                                  key={key} 
-                                  style={key === 0 ? Styles.firstContact : Styles.contacts} 
-                                  onPress={ 
-                                    isEmergency ?
-                                      () => addToEmergencyContact(item)
-                                      :
-                                      () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)
+                                <View key={key}>
+                                {item.phoneNumber &&
+                                    <TouchableOpacity onPress={ 
+                                        isEmergency ?
+                                        () => addToEmergencyContact(item)
+                                        :
+                                        () => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)
                                     }>
-                                  {item.name}
-                                </Text>
+                                        <Text style={key === 0 ? Styles.firstContact : Styles.contacts}>
+                                            {item.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                }
+                                </View>
                             )
                         })}
                 </View>
