@@ -41,10 +41,24 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.thebesttcc.tcc",
+      "googleServicesFile": "./google-services.json",
       "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "mode": "production"
+        }
+      ]
+    ],
+    "notification": {
+      "icon": "./assets/icon.png"
     }
-  }
+  } 
 }
