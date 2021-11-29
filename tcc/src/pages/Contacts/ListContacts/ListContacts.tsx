@@ -44,7 +44,6 @@ const ListContacts = () => {
                         id: item.id,
                     }
                 })
-                console.log(contacts)
                 setSearchedContacts(contacts);
                 setListContacts(contacts)
                 setLoading(false)
@@ -89,7 +88,7 @@ const ListContacts = () => {
                     />
                 </View>
                 <View>
-                    {loading || searchedContacts !== undefined ?
+                    {loading || searchedContacts === undefined ?
                         <Text>Carregando...</Text>
                         :
                         searchedContacts.map((item: any, key: number) => {
