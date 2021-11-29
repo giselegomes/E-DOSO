@@ -7,6 +7,7 @@ import ListContacts from './pages/Contacts/ListContacts/ListContacts';
 import ShowContact from './pages/Contacts/ShowContact/ShowContact';
 import NewMedicine from './pages/MedicineManagement/NewMedicine/NewMedicine';
 import ListMedicine from './pages/MedicineManagement/ListMedicine/ListMedicine';
+import ShowMedicine from './pages/MedicineManagement/ShowMedicine/ShowMedicine';
 import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContacts/ListEmergencyContacts';
 import CameraScreen from './pages/Camera/Camera';
 
@@ -23,6 +24,7 @@ export default function Routes() {
                 <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} options={{title:"Contatos de Emergência"}} />       
                 <AppStack.Screen name="NewMedicine" component={NewMedicine} options={{title:"Novo Remédio"}} />      
                 <AppStack.Screen name="ListMedicine" component={ListMedicine} options={{title:"Remédios"}} />   
+                <AppStack.Screen name="ShowMedicine" component={ShowMedicine} options={{title:"Mostrar Remédios"}} /> 
                 <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />              
             </AppStack.Navigator>
         </NavigationContainer>
