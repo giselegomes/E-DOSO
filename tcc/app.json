@@ -51,14 +51,13 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/icon.png",
+          "icon": ".assets/favicon.png",
           "color": "#ffffff",
-          "mode": "production"
+          "mode": "production",
+          "sounds": ["/assets/notification"]
         }
       ]
-    ],
-    "notification": {
-      "icon": "./assets/icon.png"
-    }
-  } 
+    ]
+  }
 }
+  
