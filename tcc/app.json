@@ -2,9 +2,18 @@
   "expo": {
     "name": "E-doso",
     "slug": "tcc",
-    "version": "1.5",
+    "version": "1.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "plugins": [
+      [
+        "@react-native-voice/voice",
+        {
+          "microphonePermission": "Permitir acesso ao microfone",
+          "speechRecogntionPermission": "Permitir reconhecimento de voz"
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/idoso.png",
       "resizeMode": "contain",
@@ -17,13 +26,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thebesttcc.tcc"
     },
     "android": {
-      "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL", "WRITE_CONTACTS" ],
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA_ROLL",
+        "WRITE_CONTACTS",
+        "READ_EXTERNAL_STORAGE",
+        "SYSTEM_ALERT_WINDOW",
+        "SET_ALARM",
+        "android.permission.RECORD_AUDIO"
+      ],
       "package": "com.thebesttcc.tcc",
-      "versionCode": 5,
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"

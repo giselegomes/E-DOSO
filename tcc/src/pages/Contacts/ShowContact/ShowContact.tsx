@@ -6,6 +6,7 @@ import { Card, Icon } from 'react-native-elements';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import CustomModal from '../../../components/CustomModal/CustomModal';
+import ImagePicker from '../../../components/CustomImagePicker/CustomImagePicker';
 import * as Contact from 'expo-contacts';
 
 const ShowContact = () => {
@@ -13,18 +14,34 @@ const ShowContact = () => {
 
     type ParamList = {
         ShowContact: {
+            contactName: string;
             contactNumber: string;
             imageContact: string;
             id: string;
         };
     };
     const contact = useRoute<RouteProp<ParamList, 'ShowContact'>>();
-    const number = contact.params.contactNumber
-    const image = contact.params.imageContact;
+    const number = contact.params.contactNumber;
+    const name = contact.params.contactName;
     const id = contact.params.id;
+    console.log(contact.params)
     const [isOpenModal, setisOpenModal] = useState(false);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);
+    const [statusImagePicker, setStatusImagePicker] = useState(false);
+    const [hasImage, setHasImage] = useState(contact.params.imageContact !== undefined);
+    const [image, setImage] = useState<string | undefined>(contact.params.imageContact);
+
+    const toogleImagePicker = () => {
+        setStatusImagePicker(!statusImagePicker);
+    };
+
+    const toogleSetImage = (uri: string) => {
+        setImage(uri);
+        toogleImagePicker();
+        setHasImage(true);
+    }
+
 
     const callContact = () => {
         let call = `tel:${number}`
@@ -95,78 +112,90 @@ const ShowContact = () => {
                             modalTitle='Tem certeza que deseja excluir esse contato ?'
                             handleFirstOption={deleteContact}
                             handleCancelOption={toogleDeleteModal}
-                            firstOptionTitle={'Excluir'} />
+                            firstOptionTitle={'Excluir'}
+                            showIcon={true}
+                        />
                     }
                     {isOpenBlockModal &&
                         <CustomModal
                             modalTitle='Tem certeza que deseja bloquear esse contato ?'
                             handleFirstOption={blockContact}
                             handleCancelOption={toogleBlockModal}
-                            firstOptionTitle={'Bloquear'} />
-                    }
-                </View>
-                <View style={{ display: "flex", marginTop: 10, height: 80 }}>
-                    <Card containerStyle={Styles.teste}>
-                        <View style={Styles.topbar}>
-                            <Text style={Styles.cardText}>Contato</Text>
-                            <View style={{ width: 20, height: 50, }}>
-                                <TouchableOpacity onPress={handleModal}>
-                                    <Icon
-                                        name={"ellipsis-v"}
-                                        type={"font-awesome"}
-                                        color="white"
-                                        iconStyle={Styles.dotIcon}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Card>
-                    {isOpenModal &&
-                        <View style={{ alignItems: 'flex-end', marginRight: 15, marginTop: 5 }}>
-                            <View style={{ width: 250, backgroundColor: 'white', zIndex: 10, paddingLeft: 15, paddingRight: 15 }}>
-                                <TouchableOpacity style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }} onPress={redirectToEdit}>
-                                    <Icon
-                                        name={"pencil"}
-                                        type={"font-awesome"}
-                                        color="gray"
-                                    />
-                                    <Text style={Styles.listOptions}>Editar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 2, borderTopColor: '#e0dede', zIndex: 10 }} onPress={toogleDeleteModal}>
-                                    <Icon
-                                        name={"trash"}
-                                        type={"font-awesome"}
-                                        color="gray"
-                                    />
-                                    <Text style={Styles.listOptions}>Excluir</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ width: '100%', flexDirection: 'row', alignItems: 'center', borderTopWidth: 2, borderTopColor: '#e0dede' }} onPress={toogleBlockModal}>
-                                    <Icon
-                                        name={"ban"}
-                                        type={"font-awesome"}
-                                        color="gray"
-                                    />
-                                    <Text style={Styles.listOptions}>Bloquear</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                            firstOptionTitle={'Bloquear'}
+                            showIcon={true}
+                        />
                     }
                 </View>
                 <View >
                     <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
-                        {image !== undefined ?
-                            <Image source={{ uri: contact.params.imageContact }} style={Styles.imageContainer} />
-                            :
-                            <View style={Styles.iconContainer}>
-
-                                <Icon
-                                    name={"user"}
-                                    type={"font-awesome"}
-                                    color="white"
-                                    iconStyle={Styles.icon}
-                                />
-                            </View>
+                        {statusImagePicker &&
+                            <ImagePicker toogleImagePicker={toogleImagePicker} toogleSetImage={toogleSetImage} />
                         }
+                        {hasImage ?
+                            <TouchableOpacity onPress={toogleImagePicker} >
+                                <Image source={{ uri: image }} style={Styles.imageContainer} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={toogleImagePicker} >
+                                <View style={Styles.iconContainer}>
+
+                                    <Icon
+                                        name={"user"}
+                                        type={"font-awesome"}
+                                        color="white"
+                                        iconStyle={Styles.icon}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        }
+
+                        <View style={{ display: "flex", marginTop: 10, height: 60 }}>
+                            <View style={Styles.topbar}>
+                                <Text style={Styles.cardText}>{name}</Text>
+                                <View style={{ width: 20, height: 50, }}>
+                                    <TouchableOpacity onPress={handleModal}>
+                                        <Icon
+                                            name={"ellipsis-v"}
+                                            type={"font-awesome"}
+                                            color="black"
+                                            iconStyle={Styles.dotIcon}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                        
+                        {isOpenModal &&
+                                <View style={{ alignItems: 'flex-end', marginRight: 15, marginTop: 5 }}>
+                                    <View style={{ width: 250, backgroundColor: 'white', zIndex: 10, paddingLeft: 15, paddingRight: 15 }}>
+                                        <TouchableOpacity style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }} onPress={redirectToEdit}>
+                                            <Icon
+                                                name={"pencil"}
+                                                type={"font-awesome"}
+                                                color="gray"
+                                            />
+                                            <Text style={Styles.listOptions}>Editar</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 2, borderTopColor: '#e0dede', zIndex: 10 }} onPress={toogleDeleteModal}>
+                                            <Icon
+                                                name={"trash"}
+                                                type={"font-awesome"}
+                                                color="gray"
+                                            />
+                                            <Text style={Styles.listOptions}>Excluir</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ width: '100%', flexDirection: 'row', alignItems: 'center', borderTopWidth: 2, borderTopColor: '#e0dede' }} onPress={toogleBlockModal}>
+                                            <Icon
+                                                name={"ban"}
+                                                type={"font-awesome"}
+                                                color="gray"
+                                            />
+                                            <Text style={Styles.listOptions}>Bloquear</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            }
+
                         <TouchableHighlight style={Styles.buttonCall} onPress={callContact}>
                             <View style={{ flex: 1, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={Styles.buttonText}>Ligar</Text>

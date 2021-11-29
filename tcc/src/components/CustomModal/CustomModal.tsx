@@ -1,7 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, ActionSheetIOS, GestureResponderEvent } from 'react-native';
+import { TouchableOpacity, View, Text, Modal, GestureResponderEvent } from 'react-native';
 import { Styles } from './CustomModal.style';
-import { Icon } from 'react-native-elements';
 
 interface CustomModalProps {
     firstOptionTitle: string;
@@ -9,24 +8,16 @@ interface CustomModalProps {
     modalTitle: string;
     handleFirstOption: (event: GestureResponderEvent) => void
     handleSecondOption?: (event: GestureResponderEvent) => void
-    handleCancelOption: (event: GestureResponderEvent) => void
+    handleCancelOption?: (event: GestureResponderEvent) => void
+    showIcon: boolean;
 
 }
 
 const CustomModal = (Props: CustomModalProps) => {
     return (
-
+        <View style={Styles.container}>
+        <Modal animationType={'fade'} transparent={false} visible={true} onRequestClose={() => Props.handleCancelOption}>
         <View style={Styles.modal}>
-
-            <View style={Styles.iconContainer}>
-                <Icon
-                    name={"times-circle"}
-                    type={"font-awesome"}
-                    color="white"
-                    iconStyle={Styles.icon}
-                    onPress={Props.handleCancelOption}
-                />
-            </View>
             <Text style={Styles.modalTitle}>{Props.modalTitle}</Text>
             <TouchableOpacity style={Styles.buttonImage} onPress={Props.handleFirstOption}>
                 <Text style={Styles.buttonText}>{Props.firstOptionTitle}</Text>
@@ -40,6 +31,8 @@ const CustomModal = (Props: CustomModalProps) => {
                 <Text style={Styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
 
+        </View>
+        </Modal>
         </View>
     );
 }
