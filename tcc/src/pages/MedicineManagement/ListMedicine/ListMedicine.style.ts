@@ -15,16 +15,31 @@ export const styles = StyleSheet.create({
 
 
     btnText: {
-        color: '#000',
         fontSize: 30,
         textAlign: 'center',
         marginRight: 10,
-        color: "gray"
+        color: "gray",
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center'
     },
     icon: {
         backgroundColor: "transparent",
         borderRadius: 16,
         borderColor: "#000",
+    },
+    titleList: {
+        fontSize: 30,
+        textAlign: "center",
+        paddingVertical: 20
+    },
+    list: {
+        backgroundColor: "transparent",
+        paddingHorizontal: 24,
+        paddingVertical: 24,
+        fontSize: 26,
+        borderColor: "red",
+
     }
 
 })
