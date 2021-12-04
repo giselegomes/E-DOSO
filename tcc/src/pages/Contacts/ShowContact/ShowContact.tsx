@@ -24,7 +24,6 @@ const ShowContact = () => {
     const number = contact.params.contactNumber;
     const name = contact.params.contactName;
     const id = contact.params.id;
-    console.log(contact.params)
     const [isOpenModal, setisOpenModal] = useState(false);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);

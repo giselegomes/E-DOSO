@@ -6,8 +6,8 @@ import NewContact from './pages/Contacts/NewContacts/NewContact';
 import ListContacts from './pages/Contacts/ListContacts/ListContacts';
 import ShowContact from './pages/Contacts/ShowContact/ShowContact';
 import NewMedicine from './pages/MedicineManagement/NewMedicine/NewMedicine';
-import ListMedicine from './pages/MedicineManagement/ListMedicine/ListMedicine';
 import ShowMedicine from './pages/MedicineManagement/ShowMedicine/ShowMedicine';
+import ListMedicine from './pages/MedicineManagement//ListMedicine/ListMedicine';
 import ListEmergencyContacts from './pages/EmergencyContacts/ListEmergencyContacts/ListEmergencyContacts';
 import CameraScreen from './pages/Camera/Camera';
 import Settings from './pages/Settings/Settings';
@@ -27,8 +27,8 @@ export default function Routes() {
                 <AppStack.Screen name="ListEmergencyContacts" component={ListEmergencyContacts} options={{title:"Emergência"}} />       
                 <AppStack.Screen name="NewMedicine" component={NewMedicine} options={{title:"Novo Remédio"}} />      
                 <AppStack.Screen name="ShowMedicine" component={ShowMedicine} options={{title:"Mostrar Remédios"}} /> 
-                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />              
-                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />    
+                <AppStack.Screen name="ListMedicine" component={ListMedicine} options={{title:"Remédios"}} /> 
+                <AppStack.Screen name="Camera" component={CameraScreen} options={{title:"Camera"}} />
                 <AppStack.Screen name="Settings" component={Settings} options={{title:"Ajustes"}} />  
                 <AppStack.Screen name="NewApps" component={NewApps} options={{title:"Mais aplicativos"}} />              
                 <AppStack.Screen name="Tutorial" component={Tutorial} options={{title:"Tutorial"}} />              

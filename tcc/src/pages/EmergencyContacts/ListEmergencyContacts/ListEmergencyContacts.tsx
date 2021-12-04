@@ -14,7 +14,6 @@ const ListEmergencyContacts = () => {
     const emergencyContact = useRoute<RouteProp<ParamList, 'ListEmergencyContacts'>>();
     const contact = emergencyContact?.params?.contact;
 
-    const [listContacts, setListContacts] = useState<any>([]);
     const [searchedContacts, setSearchedContacts] = useState<any>([]);
     const navigation = useNavigation();
 
@@ -24,7 +23,6 @@ const ListEmergencyContacts = () => {
                 let data: any = await AsyncStorage.getItem('EmergencyContacts');
                 if(data !== null) {
                     setSearchedContacts(JSON.parse(data));
-                    setListContacts(data)
                 }
             }
             catch(error) {
@@ -46,13 +44,6 @@ const ListEmergencyContacts = () => {
         }
         loadEmergencyContacts();
     }, [contact])
-    
-    const toogleSearchedContacts = (searchedValue: string) => {
-        const results = listContacts.filter((contact: any) =>
-            contact.name.toLowerCase().includes(searchedValue.toLowerCase()),
-        );
-        setSearchedContacts(results);
-    };
 
     const redirectToListContacts = () => {
         navigation.navigate('ListContacts', {isEmergency: true});
@@ -77,7 +68,7 @@ const ListEmergencyContacts = () => {
                 <View>
                     {Object.values(searchedContacts).map((item: any, key: number) => {
                          return (
-                             <TouchableOpacity onPress={() => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)}>
+                             <TouchableOpacity key={key} onPress={() => redirectToShowContact(item.phoneNumber[0].number, item.imageContact, item.id, item.name)}>
                                 <Text 
                                   key={key} 
                                   style={key === 0 ? Styles.firstContact : Styles.contacts}>
