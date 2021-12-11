@@ -40,6 +40,24 @@ export const styles = StyleSheet.create({
         fontSize: 26,
         borderColor: "red",
 
-    }
+    },
+    imageContainer: {
+      borderWidth: 0,
+      borderRadius: 6,
+      width: 50,
+      height: 40,
+      justifyContent: 'space-between',
+    },
+    iconContainer: {
+      backgroundColor: "gray",
+      borderWidth: 0,
+      borderRadius: 6,
+      width: 50,
+      height: 40,
+    },
+    iconMeds: {
+      marginTop: 8,
+      fontSize: 120,
+    },
 
 })

@@ -15,16 +15,16 @@ export const Styles = StyleSheet.create({
   imageContainer: {
     borderWidth: 0,
     borderRadius: 6,
-    width: 200,
-    height: 190,
+    width: 160,
+    height: 150,
     justifyContent: 'space-between',
   },
   iconContainer: {
     backgroundColor: "gray",
     borderWidth: 0,
     borderRadius: 6,
-    width: 200,
-    height: 190,
+    width: 160,
+    height: 150,
     justifyContent: 'space-between',
   },
   icon: {

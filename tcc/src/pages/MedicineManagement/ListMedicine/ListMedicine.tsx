@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, Text, FlatList, StatusBar, Button, TouchableOpacity } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 
 import { styles } from '../ListMedicine/ListMedicine.style';
 import { FontAwesome } from '@expo/vector-icons';
-import api from "../../../services/api";
-import { CardMedicine } from '../../../components/CardMedicine/CardMedicine'
-import { MedicineProps } from '../../../libs/storage'
+import { loadMedicine, MedicineProps } from '../../../libs/storage'
+import { Icon } from "react-native-elements";
+import { format } from "date-fns";
 
 
 /* botão de cadastrar novo lembrete + lista todos os lembretes cadastrados */
 const ListMedicine = () => {
     const navigation = useNavigation();
 
-    const [medicines, setMedicines] = useState<MedicineProps[]>([]);
+    const [medicines, setMedicines] = useState<Array<MedicineProps>>();
 
     useEffect(() => {
         async function fetchMedicines() {
-            const { data } = await api.get('medicines?_sort=name&_order=asc')
+            let data: Array<MedicineProps> = await loadMedicine();
+            console.log(data);
             // salvar dados
-            setMedicines(data);
+            if (data != null)
+                setMedicines(data);
+
         }
 
         fetchMedicines();
     }, [])
-
-    function handleMedicineSelect(medicine: MedicineProps) {
-    }
 
     return (
         <ScrollView >
@@ -43,22 +42,29 @@ const ListMedicine = () => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text style={styles.titleList}>
-                    Lembretes cadastrados:
-                </Text>
-
                 {/* Renderiza a lista com os lembretes cadastrados */}
                 {/* CardMedicine * componente */}
-                <FlatList 
-                    data={medicines}
-                    renderItem={({ item }) => (
-                        <CardMedicine 
-                        style={styles.list} 
-                        data={item}
-                        onPress={() => handleMedicineSelect(item)}
-                        />
-                    )}
-                />
+                {(medicines && medicines != null && medicines != undefined) ? medicines.map((item,index) => {
+                   return  (
+                    <View style={{ width: '100%', flex: 1, flexDirection: 'row', paddingLeft: 45, marginTop: 15, justifyContent: "space-between" }}>
+                        <Text key={index}>{item.name}</Text>
+                        <Text key={index}>{format(item.dateTimeNotification, 'HH:mm')}</Text>
+                        {item.imageUri != undefined && item.imageUri != '' ?
+                                <Image source={{ uri: item.imageUri }} style={styles.imageContainer} />
+                                :
+                                <View style={styles.iconContainer}>
+
+                                    <Icon
+                                        name={"capsules"}
+                                        type={"font-awesome-5"}
+                                        color="white"
+                                        iconStyle={styles.iconMeds}
+                                    />
+                                </View>
+                            }
+                </View>
+                    )
+                }) : <Text>Carregando...</Text>}
             </View>
         </ScrollView>
     )

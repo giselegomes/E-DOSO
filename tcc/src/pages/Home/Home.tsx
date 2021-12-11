@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Text, View, Linking, ScrollView, Platform } from "react-native";
+import { Text, View, Linking, ScrollView, Platform, Alert } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { Styles } from "./Home.style";
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import AppLink from 'react-native-app-link';
 import VoiceRecord from "../../components/VoiceRecorder/VoiceRecorder";
-import AsyncStorage  from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const navigation = useNavigation();
@@ -15,22 +15,22 @@ export default function App() {
 
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-  
+
   useEffect(() => {
     const getTutorial = async () => {
-        try {
-            let data: any = await AsyncStorage.getItem('tutorial');
-            if(data == null) {
-              navigation.navigate('Tutorial');
-            }
+      try {
+        let data: any = await AsyncStorage.getItem('tutorial');
+        if (data == null) {
+          navigation.navigate('Tutorial');
         }
-        catch(error) {
-            alert(error)
-        }
+      }
+      catch (error) {
+        alert(error)
+      }
     }
     getTutorial();
   }, [])
-  
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -95,7 +95,7 @@ export default function App() {
     {
       iconName: "camera",
       iconType: "font-awesome",
-      text: "Camera",
+      text: "Câmera",
       clickFunction: () => {
         navigation.navigate('Camera', { zoomMode: false });
       },
@@ -121,7 +121,23 @@ export default function App() {
       iconType: "font-awesome",
       text: "Criar Contato",
       clickFunction: () => {
-        navigation.navigate('NewContact', { param: 'create' });
+        Alert.alert(
+          "Criação de contato",
+          "No momento a criação de contato não está funcionando.",
+          [
+            {
+              text: "Cancelar",
+              onPress: () => {},
+              style: "cancel"
+            },
+            {
+              text: "Prosseguir mesmo assim", 
+              onPress: () => {
+                navigation.navigate('NewContact', { param: 'create' });
+              }
+            }
+          ]
+        );
       },
     },
     {
@@ -175,11 +191,11 @@ export default function App() {
   ];
 
   const handleVoiceRecordResults = (results: string[]) => {
-    const convertedResults  = results.map(item => item.toUpperCase());
+    const convertedResults = results.map(item => item.toUpperCase());
     menuItens.map(item => {
-    if (convertedResults.includes(item.text.toUpperCase())) {
-      item.clickFunction();
-    }
+      if (convertedResults.includes(item.text.toUpperCase())) {
+        item.clickFunction();
+      }
     })
   };
 
@@ -187,8 +203,8 @@ export default function App() {
     <ScrollView>
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {isRecordingVoice && (
-          <VoiceRecord 
-            handleVoiceRecordResults={handleVoiceRecordResults} 
+          <VoiceRecord
+            handleVoiceRecordResults={handleVoiceRecordResults}
           />
         )}
         {menuItens.map((a) => {
@@ -204,7 +220,7 @@ export default function App() {
           );
         })}
         {
-          torchState == true && 
+          torchState == true &&
           <Camera flashMode={Camera.Constants.FlashMode.torch}></Camera>
         }
       </View>

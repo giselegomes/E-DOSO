@@ -68,7 +68,23 @@ const ShowContact = () => {
     }
 
     const handleModal = () => {
-        setisOpenModal(!isOpenModal)
+        Alert.alert(
+            "Edição de contato",
+            "No momento a edição de contato não está funcionando.",
+            [
+              {
+                text: "Cancelar",
+                onPress: () => {},
+                style: "cancel"
+              },
+              {
+                text: "Prosseguir mesmo assim", 
+                onPress: () => {
+                    setisOpenModal(!isOpenModal)
+                }
+              }
+            ]
+          );
     }
 
     const redirectToEdit = () => {
