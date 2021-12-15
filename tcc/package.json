@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "react-native start",
+    "start": "expo start --dev-client",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
@@ -32,7 +32,6 @@
     "expo-image-picker": "~11.0.3",
     "expo-intent-launcher": "~10.0.3",
     "expo-media-library": "~13.0.3",
-    "expo-notifications": "~0.13.3",
     "expo-permissions": "~13.0.3",
     "expo-status-bar": "~1.1.0",
     "firebase": "^9.4.1",
