@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
+// import * as Notifications from 'expo-notifications';
 import { Card, Icon } from 'react-native-elements';
 import ImagePicker from '../../../components/CustomImagePicker/CustomImagePicker';
 import {
@@ -24,21 +24,21 @@ import { format, isBefore } from 'date-fns';
 import { Styles } from '../NewMedicine/NewMedicine.style';
 import { saveMedicine } from '../../../libs/storage';
 
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-    }),
-});
+// Notifications.setNotificationHandler({
+//     handleNotification: async () => ({
+//         shouldShowAlert: true,
+//         shouldPlaySound: true,
+//         shouldSetBadge: true,
+//     }),
+// });
 
 const NewMedicine = () => {
     const navigation = useNavigation();
 
-    const [expoPushToken, setExpoPushToken] = useState('');
-    const [notification, setNotification] = useState<Notifications.Notification | undefined>();
-    const notificationListener = useRef();
-    const responseListener = useRef();
+    // const [expoPushToken, setExpoPushToken] = useState('');
+    // const [notification, setNotification] = useState<Notifications.Notification | undefined>();
+    // const notificationListener = useRef();
+    // const responseListener = useRef();
 
     const [name, setMedicineName] = useState<string>("");
 
@@ -92,20 +92,20 @@ const NewMedicine = () => {
         }
     }
 
-    useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token!));
+    // useEffect(() => {
+    //     registerForPushNotificationsAsync().then(token => setExpoPushToken(token!));
 
-        // This listener is fired whenever a notification is received while the app is foregrounded
-        Notifications.addNotificationReceivedListener(notification => {
-            setNotification(notification);
-        });
+    //     // This listener is fired whenever a notification is received while the app is foregrounded
+    //     Notifications.addNotificationReceivedListener(notification => {
+    //         setNotification(notification);
+    //     });
 
-        // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-        Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response);
-        });
+    //     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    //     Notifications.addNotificationResponseReceivedListener(response => {
+    //         console.log(response);
+    //     });
 
-    }, []);
+    // }, []);
 
     return (
         <KeyboardAvoidingView>
@@ -191,64 +191,64 @@ const NewMedicine = () => {
     )
 }
 
-// Notificação
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-async function sendPushNotification(expoPushToken: string) {
-    const message = {
-        to: expoPushToken,
-        sound: 'default',
-        title: 'Oi',
-        body: 'And here is the body!',
-        android: { sound: true },
-        data: { someData: 'goes here' },
-    };
+// // Notificação
+// // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
+// async function sendPushNotification(expoPushToken: string) {
+//     const message = {
+//         to: expoPushToken,
+//         sound: 'default',
+//         title: 'Oi',
+//         body: 'And here is the body!',
+//         android: { sound: true },
+//         data: { someData: 'goes here' },
+//     };
 
-    //Tempo
-    const options = {
-        time: Date.now() + 10000, // Schedule it in 10 seconds
-        repeat: 'day', // Repeat it daily
-    };
+//     //Tempo
+//     const options = {
+//         time: Date.now() + 10000, // Schedule it in 10 seconds
+//         repeat: 'day', // Repeat it daily
+//     };
 
-    await fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Accept-encoding': 'gzip, deflate',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-    });
-}
+//     await fetch('https://exp.host/--/api/v2/push/send', {
+//         method: 'POST',
+//         headers: {
+//             Accept: 'application/json',
+//             'Accept-encoding': 'gzip, deflate',
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(message),
+//     });
+// }
 
-async function registerForPushNotificationsAsync() {
-    let token;
-    if (Constants.isDevice) {
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== 'granted') {
-            const { status } = await Notifications.requestPermissionsAsync();
-            finalStatus = status;
-        }
-        if (finalStatus !== 'granted') {
-            alert('Falha ao salvar notificação!');
-            return;
-        }
-        token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
-    } else {
-        alert('Deve ser usado um dispositivo fisico para usar as notificações');
-    }
+// async function registerForPushNotificationsAsync() {
+//     let token;
+//     if (Constants.isDevice) {
+//         const { status: existingStatus } = await Notifications.getPermissionsAsync();
+//         let finalStatus = existingStatus;
+//         if (existingStatus !== 'granted') {
+//             const { status } = await Notifications.requestPermissionsAsync();
+//             finalStatus = status;
+//         }
+//         if (finalStatus !== 'granted') {
+//             alert('Falha ao salvar notificação!');
+//             return;
+//         }
+//         token = (await Notifications.getExpoPushTokenAsync()).data;
+//         console.log(token);
+//     } else {
+//         alert('Deve ser usado um dispositivo fisico para usar as notificações');
+//     }
 
-    if (Platform.OS === 'android') {
-        Notifications.setNotificationChannelAsync('default', {
-            name: 'default',
-            importance: Notifications.AndroidImportance.MAX,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: '#FF231F7C',
-        });
-    }
-    return token;
-}
+//     if (Platform.OS === 'android') {
+//         Notifications.setNotificationChannelAsync('default', {
+//             name: 'default',
+//             importance: Notifications.AndroidImportance.MAX,
+//             vibrationPattern: [0, 250, 250, 250],
+//             lightColor: '#FF231F7C',
+//         });
+//     }
+//     return token;
+// }
 
 export default NewMedicine;
 
