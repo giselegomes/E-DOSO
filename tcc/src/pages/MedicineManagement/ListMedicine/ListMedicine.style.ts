@@ -44,20 +44,17 @@ export const styles = StyleSheet.create({
     imageContainer: {
       borderWidth: 0,
       borderRadius: 6,
-      width: 50,
-      height: 40,
+      width: 100,
+      height: 100,
       justifyContent: 'space-between',
     },
     iconContainer: {
       backgroundColor: "gray",
       borderWidth: 0,
       borderRadius: 6,
-      width: 50,
-      height: 40,
     },
     iconMeds: {
-      marginTop: 8,
-      fontSize: 120,
+      fontSize: 90,
     },
 
 })

@@ -3,7 +3,7 @@ import format from "date-fns/format";
 
 export interface MedicineProps {
     name: string;
-    dateTimeNotification: Date;
+    dateTimeNotification: string;
     imageUri: string
 }
 

@@ -75,9 +75,9 @@ const NewMedicine = () => {
     async function handleSave() {
         try {
             if (selectedDateTime != undefined && name != '' && image != undefined) {
-
+                
                 await saveMedicine({
-                    dateTimeNotification: selectedDateTime!,
+                    dateTimeNotification: selectedDateTime,
                     name: name,
                     imageUri: image!
 
