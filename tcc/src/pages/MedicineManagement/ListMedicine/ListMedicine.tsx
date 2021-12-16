@@ -6,7 +6,7 @@ import { styles } from '../ListMedicine/ListMedicine.style';
 import { FontAwesome } from '@expo/vector-icons';
 import { loadMedicine, MedicineProps } from '../../../libs/storage'
 import { Icon } from "react-native-elements";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 
 /* botão de cadastrar novo lembrete + lista todos os lembretes cadastrados */
@@ -18,7 +18,6 @@ const ListMedicine = () => {
     useEffect(() => {
         async function fetchMedicines() {
             let data: Array<MedicineProps> = await loadMedicine();
-            console.log(data);
             // salvar dados
             if (data != null)
                 setMedicines(data);
@@ -26,7 +25,7 @@ const ListMedicine = () => {
         }
 
         fetchMedicines();
-    }, [])
+    }, [medicines])
 
     return (
         <ScrollView >
@@ -46,9 +45,7 @@ const ListMedicine = () => {
                 {/* CardMedicine * componente */}
                 {(medicines && medicines != null && medicines != undefined) ? medicines.map((item,index) => {
                    return  (
-                    <View style={{ width: '100%', flex: 1, flexDirection: 'row', paddingLeft: 45, marginTop: 15, justifyContent: "space-between" }}>
-                        <Text key={index}>{item.name}</Text>
-                        <Text key={index}>{format(item.dateTimeNotification, 'HH:mm')}</Text>
+                    <View key={index} style={{ width: '100%', flex: 1, flexDirection: 'row', padding: 45, marginTop: 15, justifyContent: "space-between", alignItems: 'center', }}>
                         {item.imageUri != undefined && item.imageUri != '' ?
                                 <Image source={{ uri: item.imageUri }} style={styles.imageContainer} />
                                 :
@@ -61,7 +58,9 @@ const ListMedicine = () => {
                                         iconStyle={styles.iconMeds}
                                     />
                                 </View>
-                            }
+                        }
+                        <Text style={{ fontSize: 30}}>{item.name}</Text>
+                        <Text style={{ fontSize: 30}}>{format(parseISO(item.dateTimeNotification), 'HH:mm')}</Text>
                 </View>
                     )
                 }) : <Text>Carregando...</Text>}
