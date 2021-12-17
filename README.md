@@ -2,7 +2,7 @@
 
 # Aplicativo E-doso
 
-Esse é o repositório do aplicativo E-DOSO, desenvolvido como Trabalho de Conclusão de Curso, do curso de Análise e Desenvolvimento de Sistemas - UFPR
+Esse é o repositório do aplicativo E-DOSO, desenvolvido como Trabalho de Conclusão de Curso, do curso de Análise e Desenvolvimento de Sistemas da Universidade Federal do Paraná
 
 ### Requisitos para instalação
     - yarn
